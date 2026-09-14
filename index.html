@@ -1,0 +1,1072 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Comptage Shop Santé</title><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Comptage"><meta name="mobile-web-app-capable" content="yes"><meta name="theme-color" content="#1F4E5F"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap">
+<style>
+:root{
+  --ground:#F2F4F2; --surface:#FFFFFF; --surface-2:#E8EDEB; --surface-3:#DDE4E2;
+  --line:#CFD8D6; --line-strong:#B4C1BE;
+  --ink:#132229; --ink-2:#5A6C71; --ink-3:#849699;
+  --accent:#1F4E5F; --accent-ink:#FFFFFF; --accent-soft:#DFEAED;
+  --nova:#1F4E5F; --spark:#B93154; --fitcook:#27407D;
+  --ok:#256F4A; --ok-soft:#DCEDE3;
+  --warn:#8F5600; --warn-soft:#FBEBD2;
+  --danger:#9C2B2B; --danger-soft:#F7DEDE;
+  --shadow:0 1px 2px rgba(19,34,41,.07), 0 8px 24px rgba(19,34,41,.08);
+  --sheet-shadow:0 -8px 48px rgba(19,34,41,.28);
+  --r:10px;
+  --f-head:"Barlow Semi Condensed",Arial Narrow,Helvetica,sans-serif;
+  --f-body:"Source Sans 3",Segoe UI,Helvetica,Arial,sans-serif;
+  --f-num:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#0E1A1E; --surface:#16252B; --surface-2:#1E3138; --surface-3:#264049;
+    --line:#2C4149; --line-strong:#3D5761;
+    --ink:#E7EFEF; --ink-2:#9BAEB3; --ink-3:#7A9099;
+    --accent:#6BB9C8; --accent-ink:#06171C; --accent-soft:#1B3239;
+    --nova:#6BB9C8; --spark:#EE7C97; --fitcook:#8AA6E8;
+    --ok:#76C79B; --ok-soft:#173226;
+    --warn:#E5B266; --warn-soft:#33260F;
+    --danger:#F09595; --danger-soft:#3A1C1C;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
+    --sheet-shadow:0 -8px 48px rgba(0,0,0,.6);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0E1A1E; --surface:#16252B; --surface-2:#1E3138; --surface-3:#264049;
+  --line:#2C4149; --line-strong:#3D5761;
+  --ink:#E7EFEF; --ink-2:#9BAEB3; --ink-3:#7A9099;
+  --accent:#6BB9C8; --accent-ink:#06171C; --accent-soft:#1B3239;
+  --nova:#6BB9C8; --spark:#EE7C97; --fitcook:#8AA6E8;
+  --ok:#76C79B; --ok-soft:#173226;
+  --warn:#E5B266; --warn-soft:#33260F;
+  --danger:#F09595; --danger-soft:#3A1C1C;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
+  --sheet-shadow:0 -8px 48px rgba(0,0,0,.6);
+}
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--ground); color:var(--ink);
+  font-family:var(--f-body); font-size:16px; line-height:1.45;
+  -webkit-text-size-adjust:100%; -webkit-tap-highlight-color:transparent;
+}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer;background:none;border:none}
+.num{font-family:var(--f-num);font-variant-numeric:tabular-nums}
+.lbl{font-family:var(--f-head);text-transform:uppercase;letter-spacing:.07em;
+  font-size:11.5px;font-weight:600;color:var(--ink-3)}
+
+/* ---------- header ---------- */
+header{position:sticky;top:0;z-index:30;background:var(--surface);border-bottom:1px solid var(--line)}
+.hwrap{max-width:1180px;margin:0 auto;padding:10px 16px 0}
+.htop{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.brandmark{display:flex;align-items:baseline;gap:9px;margin-right:auto;min-width:0}
+h1{font-family:var(--f-head);font-size:20px;font-weight:700;margin:0;letter-spacing:.01em;text-wrap:balance}
+.date-tag{font-family:var(--f-head);font-size:12px;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--ink-3);white-space:nowrap}
+.who{display:flex;align-items:center;gap:6px}
+.who input{width:116px;background:var(--surface-2);border:1px solid var(--line);
+  border-radius:8px;padding:6px 9px;font-size:14px}
+.who input:focus{outline:2px solid var(--accent);outline-offset:1px}
+.btn{border:1px solid var(--line-strong);border-radius:9px;padding:8px 13px;
+  font-family:var(--f-head);font-weight:600;font-size:14px;letter-spacing:.03em;
+  background:var(--surface);color:var(--ink);white-space:nowrap}
+.btn:hover{background:var(--surface-2)}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn:focus-visible,.pill:focus-visible,.row:focus-visible,.key:focus-visible,
+.stp:focus-visible,.seg button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+
+/* emplacement actif */
+.locbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  margin:10px 0 0;padding:9px 12px;background:var(--accent-soft);border-radius:11px}
+.locbar > .lbl{color:var(--accent)}
+.loc{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.locgrp{display:flex;align-items:center;gap:6px}
+.locgrp > .lbl{margin-right:2px}
+.stp{width:36px;height:38px;border-radius:9px;font-family:var(--f-num);font-size:19px;
+  background:var(--surface);border:1px solid var(--line-strong);line-height:1}
+.stp:active{background:var(--surface-2)}
+.locval{font-family:var(--f-num);font-size:21px;font-weight:600;min-width:30px;text-align:center}
+.seg{display:flex;gap:4px}
+.seg button{width:38px;height:38px;border-radius:9px;border:1px solid var(--line-strong);
+  background:var(--surface);font-family:var(--f-num);font-size:16px;line-height:1}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.seg .none{width:auto;padding:0 10px;font-family:var(--f-head);font-size:13px;letter-spacing:.03em}
+
+/* progress */
+.prog{margin:11px 0 3px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.bar{flex:1 1 200px;height:9px;background:var(--surface-3);border-radius:99px;overflow:hidden;display:flex}
+.bar span{display:block;height:100%}
+.bar .done{background:var(--ok)}
+.bar .flag{background:var(--warn)}
+.progtxt{font-family:var(--f-num);font-size:14px;color:var(--ink-2);white-space:nowrap}
+.progtxt b{color:var(--ink);font-weight:600;font-size:17px}
+
+/* filters */
+.filters{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:10px 0 11px}
+.pill{border:1px solid var(--line-strong);background:var(--surface);border-radius:99px;
+  padding:7px 14px;font-family:var(--f-head);font-weight:600;font-size:14px;letter-spacing:.03em;
+  display:inline-flex;align-items:center;gap:7px}
+.pill .dot{width:9px;height:9px;border-radius:99px;background:currentColor;opacity:.8}
+.pill[aria-pressed="true"]{background:var(--ink);color:var(--ground);border-color:var(--ink)}
+.pill.nova[aria-pressed="true"]{background:var(--nova);border-color:var(--nova);color:#fff}
+.pill.spark[aria-pressed="true"]{background:var(--spark);border-color:var(--spark);color:#fff}
+.pill.fitcook[aria-pressed="true"]{background:var(--fitcook);border-color:var(--fitcook);color:#fff}
+:root[data-theme="dark"] .pill.nova[aria-pressed="true"],
+:root[data-theme="dark"] .pill.spark[aria-pressed="true"],
+:root[data-theme="dark"] .pill.fitcook[aria-pressed="true"]{color:#06171C}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]) .pill.nova[aria-pressed="true"],
+  :root:not([data-theme="light"]) .pill.spark[aria-pressed="true"],
+  :root:not([data-theme="light"]) .pill.fitcook[aria-pressed="true"]{color:#06171C}
+}
+#q{flex:1 1 170px;min-width:140px;background:var(--surface-2);border:1px solid var(--line);
+  border-radius:9px;padding:9px 13px}
+#q:focus{outline:2px solid var(--accent);outline-offset:1px}
+select{background:var(--surface-2);border:1px solid var(--line);border-radius:9px;padding:9px 11px}
+
+/* assignment banner */
+.assignbar{background:var(--warn-soft);color:var(--warn);border-radius:10px;
+  padding:9px 13px;margin-bottom:12px;font-family:var(--f-head);font-weight:600;
+  letter-spacing:.02em;display:none}
+body.assign .assignbar{display:block}
+body.assign .row{border-style:dashed}
+
+/* ---------- list ---------- */
+main{max-width:1180px;margin:0 auto;padding:14px 16px 96px}
+.cathead{display:flex;align-items:baseline;gap:10px;margin:22px 2px 9px}
+.cathead:first-of-type{margin-top:4px}
+.cathead h2{font-family:var(--f-head);font-size:16px;font-weight:700;margin:0;
+  letter-spacing:.05em;text-transform:uppercase}
+.cathead .cnt{font-family:var(--f-num);font-size:13px;color:var(--ink-3)}
+.cathead .rule{flex:1;height:1px;background:var(--line)}
+.rows{display:flex;flex-direction:column;gap:6px}
+.row{display:flex;align-items:center;gap:14px;width:100%;text-align:left;
+  background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--line-strong);
+  border-radius:var(--r);padding:12px 14px;min-height:74px}
+.row:hover{border-color:var(--line-strong)}
+.row.nova{border-left-color:var(--nova)}
+.row.spark{border-left-color:var(--spark)}
+.row.fitcook{border-left-color:var(--fitcook)}
+.row.done{background:var(--ok-soft);border-color:transparent;border-left-color:var(--ok)}
+.row.flagged{background:var(--warn-soft);border-left-color:var(--warn)}
+.rmain{flex:1;min-width:0}
+.rname{font-family:var(--f-head);font-size:18px;font-weight:600;line-height:1.2}
+.rflav{font-size:15px;color:var(--ink-2)}
+.rmeta{display:flex;gap:6px;flex-wrap:wrap;margin-top:5px}
+.tag{font-family:var(--f-head);font-size:11px;font-weight:600;letter-spacing:.05em;
+  text-transform:uppercase;padding:2px 7px;border-radius:5px;background:var(--surface-2);color:var(--ink-2)}
+.tag.warn{background:var(--warn-soft);color:var(--warn)}
+.tag.exp{background:var(--danger-soft);color:var(--danger)}
+.tag.loc{background:var(--accent);color:var(--accent-ink);font-family:var(--f-num);
+  text-transform:none;letter-spacing:.02em}
+.rright{text-align:right;flex-shrink:0;display:flex;align-items:center;gap:12px}
+.rqty{font-family:var(--f-num);font-size:28px;font-weight:500;line-height:1}
+.rqty.none{color:var(--ink-3);font-size:22px}
+.rqty.ok{color:var(--ok)}
+.rsub{font-family:var(--f-num);font-size:11.5px;color:var(--ink-3);margin-top:4px}
+.chev{color:var(--ink-3);font-size:22px;line-height:1}
+.empty{text-align:center;padding:60px 20px;color:var(--ink-2)}
+
+/* ---------- sheet ---------- */
+.scrim{position:fixed;inset:0;background:rgba(10,20,24,.5);z-index:40;
+  opacity:0;pointer-events:none;transition:opacity .18s}
+.scrim.open{opacity:1;pointer-events:auto}
+.sheet{position:fixed;left:50%;bottom:0;transform:translate(-50%,102%);
+  width:min(880px,100%);max-height:94dvh;overflow:auto;z-index:50;
+  background:var(--surface);border-radius:16px 16px 0 0;box-shadow:var(--sheet-shadow);
+  transition:transform .22s cubic-bezier(.22,.8,.3,1)}
+.sheet.open{transform:translate(-50%,0)}
+@media (prefers-reduced-motion:reduce){.sheet,.scrim{transition:none}}
+.grip{width:44px;height:4px;border-radius:99px;background:var(--line-strong);margin:9px auto 0}
+.shead{padding:12px 20px 14px;border-bottom:1px solid var(--line);display:flex;align-items:flex-start;gap:14px}
+.shead h3{font-family:var(--f-head);font-size:22px;font-weight:700;margin:2px 0 0;line-height:1.15}
+.shead .sflav{font-size:16px;color:var(--ink-2)}
+.shead .sref{font-family:var(--f-num);font-size:12.5px;color:var(--ink-3);margin-top:5px}
+.closex{font-size:26px;line-height:1;color:var(--ink-2);padding:4px 8px;border-radius:8px}
+.closex:hover{background:var(--surface-2)}
+.sbody{padding:16px 20px 4px}
+@media (min-width:780px){
+  .sbody{display:grid;grid-template-columns:1fr 1fr;gap:0 26px;align-items:start}
+  .sbody .calcgrid{grid-column:1}
+  .sbody .eq{grid-column:1}
+  .sbody .pad{grid-column:1}
+  .sbody .addrow{grid-column:1}
+  .sbody .locsheet{grid-column:2;grid-row:1;margin-top:0}
+  .sbody .blocs{grid-column:2;grid-row:2}
+  .sbody .totline{grid-column:2;grid-row:3}
+  .sbody .meta{grid-column:2;grid-row:4}
+  .sbody .note-in{grid-column:2;grid-row:5}
+  .sbody .flagbtn{grid-column:2;grid-row:6}
+}
+.calcgrid{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:8px;align-items:end}
+.field{display:flex;flex-direction:column;gap:5px}
+.field .lbl{line-height:1.2}
+.slot{background:var(--surface-2);border:2px solid var(--line);border-radius:10px;
+  padding:12px 8px;font-family:var(--f-num);font-size:26px;text-align:center;min-height:58px;
+  display:flex;align-items:center;justify-content:center}
+.slot[aria-selected="true"]{border-color:var(--accent);background:var(--accent-soft);
+  box-shadow:inset 0 0 0 1px var(--accent)}
+.slot.ghost{color:var(--ink-3)}
+.op{font-family:var(--f-num);font-size:22px;color:var(--ink-3);padding-bottom:16px}
+.eq{display:flex;align-items:baseline;justify-content:space-between;gap:12px;
+  margin:12px 0 4px;padding:11px 14px;background:var(--accent-soft);border-radius:10px}
+.eq .expr{font-family:var(--f-num);font-size:15px;color:var(--accent)}
+.eq .res{font-family:var(--f-num);font-size:26px;font-weight:600;color:var(--accent)}
+.pad{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.key{background:var(--surface-2);border:1px solid var(--line);border-radius:10px;
+  font-family:var(--f-num);font-size:22px;padding:10px 0;min-height:50px}
+.key:active{background:var(--accent-soft)}
+.key.util{font-family:var(--f-head);font-size:16px;letter-spacing:.04em;color:var(--ink-2)}
+.addrow{display:flex;gap:8px;margin-top:10px}
+.addrow .btn{flex:1;padding:13px;font-size:15px}
+.locsheet{margin-top:14px;padding:12px;border:1px solid var(--line);border-radius:11px;
+  background:var(--surface-2)}
+.locsheet .loc{gap:10px}
+.locsheet .stp,.locsheet .seg button:not([aria-pressed="true"]){background:var(--surface)}
+.locsheet .hint{font-size:13px;color:var(--ink-3);margin-top:8px}
+.blocs{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px;min-height:8px}
+.bloc{display:inline-flex;align-items:center;gap:8px;background:var(--surface-2);
+  border:1px solid var(--line);border-radius:99px;padding:6px 8px 6px 13px;
+  font-family:var(--f-num);font-size:14px}
+.bloc button{color:var(--ink-3);font-size:17px;line-height:1;padding:0 4px}
+.bloc button:hover{color:var(--spark)}
+.totline{display:flex;align-items:baseline;justify-content:space-between;
+  border-top:1px solid var(--line);margin-top:14px;padding-top:12px}
+.totline .big{font-family:var(--f-num);font-size:38px;font-weight:600;line-height:1}
+.meta{display:grid;grid-template-columns:1fr;gap:12px;margin-top:14px}
+.meta label{display:flex;flex-direction:column;gap:5px}
+.meta input{background:var(--surface-2);border:1px solid var(--line);border-radius:9px;
+  padding:11px 12px;font-size:16px}
+.meta input:focus{outline:2px solid var(--accent);outline-offset:1px}
+.flagbtn{margin-top:14px;width:100%;border:1px solid var(--line-strong);border-radius:10px;
+  padding:12px;font-family:var(--f-head);font-weight:600;letter-spacing:.03em;font-size:15px}
+.flagbtn[aria-pressed="true"]{background:var(--warn-soft);color:var(--warn);border-color:var(--warn)}
+.sfoot{position:sticky;bottom:0;background:var(--surface);border-top:1px solid var(--line);
+  padding:12px 20px;display:flex;gap:10px;margin-top:16px}
+.sfoot .btn{flex:1;padding:15px;font-size:16px}
+.note-in{margin-top:12px;width:100%;background:var(--surface-2);border:1px solid var(--line);
+  border-radius:9px;padding:11px 12px;font-size:15px;font-family:var(--f-body)}
+
+/* toast + sync */
+.toast{position:fixed;left:50%;bottom:22px;transform:translate(-50%,120%);z-index:60;
+  background:var(--ink);color:var(--ground);padding:11px 18px;border-radius:10px;
+  font-family:var(--f-head);font-weight:600;letter-spacing:.02em;box-shadow:var(--shadow);
+  transition:transform .2s}
+.toast.show{transform:translate(-50%,0)}
+.sync{display:inline-flex;align-items:center;gap:6px;font-family:var(--f-head);
+  font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-3);
+  cursor:pointer;padding:6px 8px;border-radius:8px;user-select:none}
+.sync:hover{background:var(--surface-2)}
+.sync .dot{width:8px;height:8px;border-radius:99px;background:var(--ink-3)}
+.sync.live .dot{background:var(--ok)}
+.sync.local .dot{background:var(--warn)}
+
+@media (max-width:640px){
+  .calcgrid{grid-template-columns:1fr auto 1fr;row-gap:10px}
+  .calcgrid .op.plus{display:none}
+  .calcgrid .f-reste{grid-column:1/-1}
+  .rqty{font-size:24px}
+  h1{font-size:18px}
+  .locbar{gap:8px}
+}
+</style>
+
+<header>
+  <div class="hwrap">
+    <div class="htop">
+      <div class="brandmark">
+        <h1>Comptage d'inventaire</h1>
+        <span class="date-tag" id="today"></span>
+      </div>
+      <div class="who">
+        <span class="lbl">Compteur</span>
+        <input id="who" placeholder="Votre nom" autocomplete="off">
+      </div>
+      <span class="sync" id="sync"><span class="dot"></span><span id="synctxt">Connexion…</span></span>
+      <button class="btn" id="export">Exporter CSV</button>
+    </div>
+
+    <div class="locbar">
+      <span class="lbl">Emplacement actif</span>
+      <div class="loc" id="locActive"></div>
+      <button class="pill" id="assignMode" aria-pressed="false" style="margin-left:auto">Mode emplacement</button>
+    </div>
+
+    <div class="prog">
+      <div class="bar" aria-hidden="true"><span class="done" id="barDone"></span><span class="flag" id="barFlag"></span></div>
+      <span class="progtxt"><b id="pDone">0</b> / <span id="pTot">0</span> comptés · <span id="pFlag">0</span> à vérifier</span>
+    </div>
+
+    <div class="filters">
+      <button class="pill" id="groupBy" aria-pressed="false">Grouper par emplacement</button>
+      <button class="pill nova" data-brand="Nova-Pharma" aria-pressed="false"><span class="dot" style="color:var(--nova)"></span>Nova</button>
+      <button class="pill spark" data-brand="Spark" aria-pressed="false"><span class="dot" style="color:var(--spark)"></span>Spark</button>
+      <button class="pill fitcook" data-brand="Fit Cook Foodz" aria-pressed="false"><span class="dot" style="color:var(--fitcook)"></span>Fit Cook</button>
+      <button class="pill" id="fReste" aria-pressed="false">Reste à compter</button>
+      <select id="fLoc"><option value="">Tous les emplacements</option></select>
+      <input id="q" placeholder="Chercher un produit ou une saveur…" autocomplete="off">
+    </div>
+  </div>
+</header>
+
+<main>
+  <p class="assignbar" id="assignbar"></p>
+  <div id="list"></div>
+</main>
+
+<div class="scrim" id="scrim"></div>
+<section class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sName" hidden>
+  <div class="grip"></div>
+  <div class="shead">
+    <div style="flex:1;min-width:0">
+      <span class="lbl" id="sBrand"></span>
+      <h3 id="sName"></h3>
+      <div class="sflav" id="sFlav"></div>
+      <div class="sref" id="sRef"></div>
+    </div>
+    <button class="closex" id="sClose" aria-label="Fermer">×</button>
+  </div>
+  <div class="sbody">
+    <div class="calcgrid">
+      <div class="field">
+        <span class="lbl">Caisses</span>
+        <div class="slot" id="slotC" data-slot="c" role="button" tabindex="0" aria-selected="true">0</div>
+      </div>
+      <div class="op">×</div>
+      <div class="field">
+        <span class="lbl">Unités / caisse</span>
+        <div class="slot" id="slotU" data-slot="u" role="button" tabindex="0" aria-selected="false">0</div>
+      </div>
+      <div class="op plus">+</div>
+      <div class="field f-reste">
+        <span class="lbl">Unités hors caisse</span>
+        <div class="slot" id="slotR" data-slot="r" role="button" tabindex="0" aria-selected="false">0</div>
+      </div>
+    </div>
+    <div class="eq"><span class="expr" id="expr">0 × 0 + 0</span><span class="res" id="res">0</span></div>
+    <div class="pad" id="pad"></div>
+    <div class="addrow">
+      <button class="btn" id="addBloc">+ Ajouter ce bloc</button>
+      <button class="btn" id="setZero">Aucun en stock (0)</button>
+    </div>
+
+    <div class="locsheet">
+      <span class="lbl">Emplacement de ce produit</span>
+      <div class="loc" id="locProduct" style="margin-top:8px"></div>
+      <p class="hint" id="locHint"></p>
+    </div>
+
+    <div class="blocs" id="blocs"></div>
+    <div class="totline">
+      <span class="lbl">Total compté</span>
+      <span class="big num" id="total">0</span>
+    </div>
+    <div class="meta">
+      <label><span class="lbl">Numéro de lot</span><input id="lot" autocomplete="off" placeholder="ex. 2408-B"></label>
+      <label><span class="lbl">Date d'expiration</span><input id="exp" type="date"></label>
+    </div>
+    <input class="note-in" id="note" placeholder="Note (facultatif)" autocomplete="off">
+    <button class="flagbtn" id="flag" aria-pressed="false">⚑ Marquer « à vérifier »</button>
+  </div>
+  <div class="sfoot">
+    <button class="btn" id="cancel">Annuler</button>
+    <button class="btn primary" id="save">Enregistrer</button>
+  </div>
+</section>
+
+<div class="toast" id="toast"></div>
+
+<script id="catalogue" type="application/json">[{"id":"nova-jouvence-rtd-individuel-dragon-fruit","marque":"Nova-Pharma","cat":"Jouvence RTD Collagène","produit":"Jouvence - RTD individuel","saveur":"Dragon Fruit","ref":null,"refTxt":"","aCompter":false,"note":"Produit rayé sur la feuille - aucun décompte"},{"id":"nova-jouvence-rtd-individuel-lotus-passion","marque":"Nova-Pharma","cat":"Jouvence RTD Collagène","produit":"Jouvence - RTD individuel","saveur":"Lotus Passion","ref":null,"refTxt":"","aCompter":false,"note":"Produit rayé sur la feuille - aucun décompte"},{"id":"nova-jouvence-rtd-individuel-peche-lemonade","marque":"Nova-Pharma","cat":"Jouvence RTD Collagène","produit":"Jouvence - RTD individuel","saveur":"Pêche lemonade","ref":null,"refTxt":"","aCompter":false,"note":"Produit rayé sur la feuille - aucun décompte"},{"id":"nova-jouvence-rtd-individuel-framboise","marque":"Nova-Pharma","cat":"Jouvence RTD Collagène","produit":"Jouvence - RTD individuel","saveur":"Framboise","ref":null,"refTxt":"","aCompter":false,"note":"Produit rayé sur la feuille - aucun décompte"},{"id":"nova-jouvence-12-pack-dragon-fruit","marque":"Nova-Pharma","cat":"Jouvence RTD Collagène","produit":"Jouvence 12-pack","saveur":"Dragon Fruit","ref":0,"refTxt":"0","aCompter":false,"note":""},{"id":"nova-jouvence-12-pack-lotus-passion","marque":"Nova-Pharma","cat":"Jouvence RTD Collagène","produit":"Jouvence 12-pack","saveur":"Lotus Passion","ref":0,"refTxt":"0","aCompter":false,"note":""},{"id":"nova-jouvence-12-pack-peche-lemonade","marque":"Nova-Pharma","cat":"Jouvence RTD Collagène","produit":"Jouvence 12-pack","saveur":"Pêche lemonade","ref":0,"refTxt":"0","aCompter":false,"note":""},{"id":"nova-jouvence-12-pack-framboise","marque":"Nova-Pharma","cat":"Jouvence RTD Collagène","produit":"Jouvence 12-pack","saveur":"Framboise","ref":2500,"refTxt":"2500","aCompter":false,"note":""},{"id":"nova-jouvence-12-pack-raisin-rhubarbe","marque":"Nova-Pharma","cat":"Jouvence RTD Collagène","produit":"Jouvence 12-pack","saveur":"Raisin-rhubarbe","ref":5000,"refTxt":"5000","aCompter":false,"note":""},{"id":"nova-jouvence-12-pack-clementine","marque":"Nova-Pharma","cat":"Jouvence RTD Collagène","produit":"Jouvence 12-pack","saveur":"Clémentine","ref":300,"refTxt":"25*12","aCompter":false,"note":"Écrit 25 x 12"},{"id":"nova-jouvence-12-pack-citron","marque":"Nova-Pharma","cat":"Jouvence RTD Collagène","produit":"Jouvence 12-pack","saveur":"Citron","ref":5500,"refTxt":"5500","aCompter":false,"note":""},{"id":"nova-jouvence-12-pack-pamplemousse","marque":"Nova-Pharma","cat":"Jouvence RTD Collagène","produit":"Jouvence 12-pack","saveur":"Pamplemousse","ref":1250,"refTxt":"1250","aCompter":false,"note":""},{"id":"nova-jouvence-12-pack-cerise","marque":"Nova-Pharma","cat":"Jouvence RTD Collagène","produit":"Jouvence 12-pack","saveur":"Cerise","ref":5250,"refTxt":"5250","aCompter":false,"note":""},{"id":"nova-jouvence-12-pack-melon","marque":"Nova-Pharma","cat":"Jouvence RTD Collagène","produit":"Jouvence 12-pack","saveur":"Melon","ref":null,"refTxt":"","aCompter":false,"note":"Ajout manuscrit sans quantité - à valider"},{"id":"nova-jouvence-discover-pack-framboise","marque":"Nova-Pharma","cat":"Jouvence RTD Collagène","produit":"Jouvence Discover Pack","saveur":"Framboise","ref":300,"refTxt":"300","aCompter":false,"note":""},{"id":"nova-jouvence-discover-pack-peche","marque":"Nova-Pharma","cat":"Jouvence RTD Collagène","produit":"Jouvence Discover Pack","saveur":"Pêche","ref":0,"refTxt":"0","aCompter":false,"note":""},{"id":"nova-jouvence-discover-pack-cerise","marque":"Nova-Pharma","cat":"Jouvence RTD Collagène","produit":"Jouvence Discover Pack","saveur":"Cerise","ref":500,"refTxt":"500","aCompter":false,"note":""},{"id":"nova-jouvence-discover-pack-clementine","marque":"Nova-Pharma","cat":"Jouvence RTD Collagène","produit":"Jouvence Discover Pack","saveur":"Clémentine","ref":800,"refTxt":"800","aCompter":false,"note":"Un premier chiffre a été raturé"},{"id":"nova-jouvence-discover-pack-ensemble-decouverte","marque":"Nova-Pharma","cat":"Jouvence RTD Collagène","produit":"Jouvence Discover Pack","saveur":"Ensemble Découverte","ref":768,"refTxt":"192*4","aCompter":false,"note":"Écrit 192 x 4"},{"id":"nova-electrolytes-single-packs-bleu-givre","marque":"Nova-Pharma","cat":"Électrolytes & Greens","produit":"Electrolytes Single Packs","saveur":"Bleu Givré","ref":1536,"refTxt":"768+768","aCompter":false,"note":"Note manuscrite « electro Blue Freeze » - à confirmer (Blue Freeze = Bleu Givré)"},{"id":"nova-electrolytes-single-packs-peche","marque":"Nova-Pharma","cat":"Électrolytes & Greens","produit":"Electrolytes Single Packs","saveur":"Pêche","ref":null,"refTxt":"","aCompter":false,"note":""},{"id":"nova-electrolytes-25-servings-barbotine-framboise","marque":"Nova-Pharma","cat":"Électrolytes & Greens","produit":"Electrolytes 25 Servings","saveur":"Barbotine Framboise","ref":2304,"refTxt":"768+768+768","aCompter":false,"note":"Note manuscrite « electro slush » - à confirmer (slush = barbotine)"},{"id":"nova-electrolytes-25-servings-peche","marque":"Nova-Pharma","cat":"Électrolytes & Greens","produit":"Electrolytes 25 Servings","saveur":"Pêche","ref":1727,"refTxt":"959+768","aCompter":false,"note":"Un premier 768 a été raturé"},{"id":"nova-electrolytes-25-servings-fraise-rhubarbe","marque":"Nova-Pharma","cat":"Électrolytes & Greens","produit":"Electrolytes 25 Servings","saveur":"Fraise-rhubarbe","ref":1536,"refTxt":"768+768","aCompter":false,"note":"Note manuscrite « electro fraise » - à confirmer"},{"id":"nova-electrolytes-25-servings-agrumes","marque":"Nova-Pharma","cat":"Électrolytes & Greens","produit":"Electrolytes 25 Servings","saveur":"Agrumes","ref":768,"refTxt":"768","aCompter":false,"note":""},{"id":"nova-electrolytes-25-servings-limonade","marque":"Nova-Pharma","cat":"Électrolytes & Greens","produit":"Electrolytes 25 Servings","saveur":"Limonade","ref":1536,"refTxt":"768+768","aCompter":false,"note":"Ajout manuscrit - hors liste imprimée"},{"id":"nova-electrolytes-25-servings-punch","marque":"Nova-Pharma","cat":"Électrolytes & Greens","produit":"Electrolytes 25 Servings","saveur":"Punch","ref":768,"refTxt":"768","aCompter":false,"note":"Ajout manuscrit - hors liste imprimée"},{"id":"nova-electrolytes-25-servings-tangerine","marque":"Nova-Pharma","cat":"Électrolytes & Greens","produit":"Electrolytes 25 Servings","saveur":"Tangerine","ref":768,"refTxt":"768","aCompter":false,"note":"Ajout manuscrit - hors liste imprimée"},{"id":"nova-marine-collagen-complex-tangerine-baies","marque":"Nova-Pharma","cat":"Électrolytes & Greens","produit":"Marine Collagen Complex","saveur":"Tangerine Baies","ref":null,"refTxt":"","aCompter":false,"note":"Écart noté N/A sur la feuille"},{"id":"nova-marine-collagen-complex-fraise-rhubarbe","marque":"Nova-Pharma","cat":"Électrolytes & Greens","produit":"Marine Collagen Complex","saveur":"Fraise-rhubarbe","ref":null,"refTxt":"","aCompter":false,"note":""},{"id":"nova-marine-collagen-complex-vanille-creme","marque":"Nova-Pharma","cat":"Électrolytes & Greens","produit":"Marine Collagen Complex","saveur":"Vanille Crème","ref":null,"refTxt":"","aCompter":false,"note":""},{"id":"nova-marine-collagen-complex-pamplemousse","marque":"Nova-Pharma","cat":"Électrolytes & Greens","produit":"Marine Collagen Complex","saveur":"Pamplemousse","ref":1536,"refTxt":"768+768","aCompter":false,"note":""},{"id":"nova-marine-collagen-complex-fruit-passion","marque":"Nova-Pharma","cat":"Électrolytes & Greens","produit":"Marine Collagen Complex","saveur":"Fruit Passion","ref":null,"refTxt":"","aCompter":false,"note":""},{"id":"nova-marine-collagen-complex-peche","marque":"Nova-Pharma","cat":"Électrolytes & Greens","produit":"Marine Collagen Complex","saveur":"Pêche","ref":2298,"refTxt":"768+768+762","aCompter":false,"note":"Ajout manuscrit"},{"id":"nova-marine-collagen-complex-nature","marque":"Nova-Pharma","cat":"Électrolytes & Greens","produit":"Marine Collagen Complex","saveur":"Nature","ref":768,"refTxt":"768","aCompter":false,"note":"Ajout manuscrit"},{"id":"nova-marine-collagen-complex-citron","marque":"Nova-Pharma","cat":"Électrolytes & Greens","produit":"Marine Collagen Complex","saveur":"Citron","ref":768,"refTxt":"768","aCompter":false,"note":"Ajout manuscrit"},{"id":"nova-greens-berries-peche","marque":"Nova-Pharma","cat":"Électrolytes & Greens","produit":"Greens & Berries","saveur":"Pêche","ref":null,"refTxt":"","aCompter":false,"note":""},{"id":"nova-greens-berries-cerise","marque":"Nova-Pharma","cat":"Électrolytes & Greens","produit":"Greens & Berries","saveur":"Cerise","ref":3072,"refTxt":"768+768+768+768","aCompter":false,"note":""},{"id":"nova-greens-berries-ananas","marque":"Nova-Pharma","cat":"Électrolytes & Greens","produit":"Greens & Berries","saveur":"Ananas","ref":2615,"refTxt":"768+768+311+768","aCompter":false,"note":"Ajout manuscrit"},{"id":"nova-greens-berries-baies","marque":"Nova-Pharma","cat":"Électrolytes & Greens","produit":"Greens & Berries","saveur":"Baies","ref":1461,"refTxt":"768+693","aCompter":false,"note":"Ajout manuscrit"},{"id":"nova-eaa-30-servings-dragon-fruit","marque":"Nova-Pharma","cat":"Protéines & acides aminés","produit":"EAA - 30 servings","saveur":"Dragon Fruit","ref":2304,"refTxt":"768+768+768","aCompter":false,"note":"Ajout manuscrit"},{"id":"nova-eaa-30-servings-blue-razz","marque":"Nova-Pharma","cat":"Protéines & acides aminés","produit":"EAA - 30 servings","saveur":"Blue Razz","ref":1536,"refTxt":"768+768","aCompter":false,"note":"Ajout manuscrit"},{"id":"nova-eaa-30-servings-peche-mangue","marque":"Nova-Pharma","cat":"Protéines & acides aminés","produit":"EAA - 30 servings","saveur":"Pêche / Mangue","ref":768,"refTxt":"768","aCompter":false,"note":"Ajout manuscrit"},{"id":"nova-eaa-30-servings-limonade-rose","marque":"Nova-Pharma","cat":"Protéines & acides aminés","produit":"EAA - 30 servings","saveur":"Limonade Rose","ref":1536,"refTxt":"768+768","aCompter":false,"note":"Ajout manuscrit"},{"id":"nova-eaa-30-servings-fraise-pomme-grenade","marque":"Nova-Pharma","cat":"Protéines & acides aminés","produit":"EAA - 30 servings","saveur":"Fraise Pomme Grenade","ref":1536,"refTxt":"768+768","aCompter":false,"note":"Note manuscrite « EAA fraise »"},{"id":"nova-eaa-30-servings-cyclone","marque":"Nova-Pharma","cat":"Protéines & acides aminés","produit":"EAA - 30 servings","saveur":"Cyclone","ref":1536,"refTxt":"768+768","aCompter":false,"note":"Ajout manuscrit"},{"id":"nova-eaa-30-servings-pamplemousse","marque":"Nova-Pharma","cat":"Protéines & acides aminés","produit":"EAA - 30 servings","saveur":"Pamplemousse","ref":1536,"refTxt":"768+768","aCompter":false,"note":"Ajout manuscrit"},{"id":"nova-eaa-30-servings-melon-d-eau","marque":"Nova-Pharma","cat":"Protéines & acides aminés","produit":"EAA - 30 servings","saveur":"Melon d'Eau","ref":null,"refTxt":"","aCompter":false,"note":""},{"id":"nova-vege-plant-based-protein-chocolat-noir","marque":"Nova-Pharma","cat":"Protéines & acides aminés","produit":"Vege Plant-Based Protein","saveur":"Chocolat noir","ref":524,"refTxt":"144+380","aCompter":false,"note":""},{"id":"nova-vege-plant-based-protein-pommes-et-cannelle","marque":"Nova-Pharma","cat":"Protéines & acides aminés","produit":"Vege Plant-Based Protein","saveur":"Pommes et cannelle","ref":48,"refTxt":"48","aCompter":false,"note":""},{"id":"nova-vege-plant-based-protein-baies-sauvages","marque":"Nova-Pharma","cat":"Protéines & acides aminés","produit":"Vege Plant-Based Protein","saveur":"Baies Sauvages","ref":96,"refTxt":"96","aCompter":false,"note":""},{"id":"nova-vege-plant-based-protein-cafe-macchiato","marque":"Nova-Pharma","cat":"Protéines & acides aminés","produit":"Vege Plant-Based Protein","saveur":"Café Macchiato","ref":156,"refTxt":"156","aCompter":false,"note":""},{"id":"nova-vege-plant-based-protein-tropical","marque":"Nova-Pharma","cat":"Protéines & acides aminés","produit":"Vege Plant-Based Protein","saveur":"Tropical","ref":156,"refTxt":"156","aCompter":false,"note":""},{"id":"nova-vege-plant-based-protein-cookies-cream","marque":"Nova-Pharma","cat":"Protéines & acides aminés","produit":"Vege Plant-Based Protein","saveur":"Cookies & Cream","ref":96,"refTxt":"96","aCompter":false,"note":""},{"id":"nova-vege-plant-based-protein-vanille","marque":"Nova-Pharma","cat":"Protéines & acides aminés","produit":"Vege Plant-Based Protein","saveur":"Vanille","ref":384,"refTxt":"384","aCompter":false,"note":""},{"id":"nova-vege-plant-based-protein-peanut-butter-chocolat","marque":"Nova-Pharma","cat":"Protéines & acides aminés","produit":"Vege Plant-Based Protein","saveur":"Peanut Butter Chocolat","ref":456,"refTxt":"384+72","aCompter":false,"note":""},{"id":"nova-vege-plant-based-protein-erable","marque":"Nova-Pharma","cat":"Protéines & acides aminés","produit":"Vege Plant-Based Protein","saveur":"Érable","ref":444,"refTxt":"384+60","aCompter":false,"note":""},{"id":"nova-iso-protein-908-g-vanille","marque":"Nova-Pharma","cat":"Protéines & acides aminés","produit":"ISO Protein - 908 g","saveur":"Vanille","ref":384,"refTxt":"384","aCompter":false,"note":""},{"id":"nova-iso-protein-908-g-cookie-cream","marque":"Nova-Pharma","cat":"Protéines & acides aminés","produit":"ISO Protein - 908 g","saveur":"Cookie & Cream","ref":1344,"refTxt":"192+384+384+384","aCompter":false,"note":""},{"id":"nova-iso-protein-908-g-chocolat-noir","marque":"Nova-Pharma","cat":"Protéines & acides aminés","produit":"ISO Protein - 908 g","saveur":"Chocolat noir","ref":192,"refTxt":"192","aCompter":false,"note":""},{"id":"nova-iso-protein-908-g-erable","marque":"Nova-Pharma","cat":"Protéines & acides aminés","produit":"ISO Protein - 908 g","saveur":"Érable","ref":384,"refTxt":"384","aCompter":false,"note":""},{"id":"nova-iso-protein-908-g-cappuccino","marque":"Nova-Pharma","cat":"Protéines & acides aminés","produit":"ISO Protein - 908 g","saveur":"Cappuccino","ref":636,"refTxt":"252+384","aCompter":false,"note":""},{"id":"nova-iso-protein-454-g-vanille","marque":"Nova-Pharma","cat":"Protéines & acides aminés","produit":"ISO Protein - 454 g","saveur":"Vanille","ref":null,"refTxt":"","aCompter":false,"note":""},{"id":"nova-iso-protein-454-g-cappuccino","marque":"Nova-Pharma","cat":"Protéines & acides aminés","produit":"ISO Protein - 454 g","saveur":"Cappuccino","ref":720,"refTxt":"720","aCompter":false,"note":""},{"id":"nova-iso-protein-454-g-erable","marque":"Nova-Pharma","cat":"Protéines & acides aminés","produit":"ISO Protein - 454 g","saveur":"Érable","ref":null,"refTxt":"","aCompter":false,"note":""},{"id":"nova-iso-protein-454-g-cookie-cream","marque":"Nova-Pharma","cat":"Protéines & acides aminés","produit":"ISO Protein - 454 g","saveur":"Cookie & Cream","ref":null,"refTxt":"","aCompter":false,"note":""},{"id":"nova-iso-protein-454-g-chocolat-noir","marque":"Nova-Pharma","cat":"Protéines & acides aminés","produit":"ISO Protein - 454 g","saveur":"Chocolat noir","ref":1152,"refTxt":"576+576","aCompter":false,"note":"Note manuscrite « Iso choc 454 g »"},{"id":"nova-7-days-vege-protein-vanille","marque":"Nova-Pharma","cat":"Protéines & acides aminés","produit":"7-days Vege Protein","saveur":"Vanille","ref":null,"refTxt":"","aCompter":false,"note":""},{"id":"nova-7-days-vege-protein-chocolat-noir","marque":"Nova-Pharma","cat":"Protéines & acides aminés","produit":"7-days Vege Protein","saveur":"Chocolat noir","ref":null,"refTxt":"","aCompter":false,"note":""},{"id":"nova-juicy-protein-limonade","marque":"Nova-Pharma","cat":"Protéines & acides aminés","produit":"Juicy Protein","saveur":"Limonade","ref":384,"refTxt":"384","aCompter":false,"note":"Ajout manuscrit - hors liste imprimée"},{"id":"nova-juicy-protein-fraise","marque":"Nova-Pharma","cat":"Protéines & acides aminés","produit":"Juicy Protein","saveur":"Fraise","ref":384,"refTxt":"384","aCompter":false,"note":"Ajout manuscrit - hors liste imprimée"},{"id":"nova-juicy-protein-blue-razz","marque":"Nova-Pharma","cat":"Protéines & acides aminés","produit":"Juicy Protein","saveur":"Blue Razz","ref":768,"refTxt":"384+384","aCompter":false,"note":"Ajout manuscrit - hors liste imprimée"},{"id":"nova-marine-collagene-complex-vanille-capsules-default","marque":"Nova-Pharma","cat":"Suppléments capsules","produit":"Marine Collagène Complex Vanille (capsules)","saveur":"Default","ref":null,"refTxt":"","aCompter":false,"note":""},{"id":"nova-zen-ashwagandha-gummies-default","marque":"Nova-Pharma","cat":"Suppléments capsules","produit":"Zen Ashwagandha Gummies","saveur":"Default","ref":null,"refTxt":"","aCompter":false,"note":""},{"id":"nova-creatine-monohydrate-100-serv-default","marque":"Nova-Pharma","cat":"Suppléments capsules","produit":"Creatine Monohydrate 100 serv.","saveur":"Default","ref":null,"refTxt":"","aCompter":false,"note":""},{"id":"nova-creatine-gummies-default","marque":"Nova-Pharma","cat":"Suppléments capsules","produit":"Creatine Gummies","saveur":"Default","ref":2304,"refTxt":"768+768+768","aCompter":false,"note":"Note manuscrite « creatine gummies »"},{"id":"nova-hydra-carbs-default","marque":"Nova-Pharma","cat":"Suppléments capsules","produit":"Hydra Carbs","saveur":"Default","ref":null,"refTxt":"","aCompter":false,"note":""},{"id":"nova-glycine-275-servings-default","marque":"Nova-Pharma","cat":"Suppléments capsules","produit":"Glycine 275 servings","saveur":"Default","ref":null,"refTxt":"","aCompter":false,"note":""},{"id":"nova-multihomme-2-0-default","marque":"Nova-Pharma","cat":"Suppléments capsules","produit":"MultiHomme 2.0","saveur":"Default","ref":null,"refTxt":"","aCompter":false,"note":""},{"id":"nova-creatine-monohydrate-1-kg-default","marque":"Nova-Pharma","cat":"Suppléments capsules","produit":"Creatine Monohydrate 1 kg","saveur":"Default","ref":480,"refTxt":"240+240","aCompter":false,"note":"Note manuscrite « creatine 1 kg »"},{"id":"nova-glutamine-80-servings-default","marque":"Nova-Pharma","cat":"Suppléments capsules","produit":"Glutamine 80 servings","saveur":"Default","ref":984,"refTxt":"768+216","aCompter":false,"note":"Note manuscrite « glutamine »"},{"id":"nova-synergy-trio-default","marque":"Nova-Pharma","cat":"Suppléments capsules","produit":"SYNERGY TRIO","saveur":"Default","ref":null,"refTxt":"","aCompter":false,"note":""},{"id":"nova-liquidation-slim-ax-burner-grape-lime","marque":"Nova-Pharma","cat":"Pre-workout & burners","produit":"LIQUIDATION Slim AX Burner","saveur":"Grape-lime","ref":null,"refTxt":"","aCompter":false,"note":""},{"id":"nova-ax-burner-30-servings-limonade-rose","marque":"Nova-Pharma","cat":"Pre-workout & burners","produit":"Ax Burner - 30 servings","saveur":"Limonade Rose","ref":null,"refTxt":"","aCompter":false,"note":""},{"id":"nova-ax-burner-30-servings-pamplemousse","marque":"Nova-Pharma","cat":"Pre-workout & burners","produit":"Ax Burner - 30 servings","saveur":"Pamplemousse","ref":null,"refTxt":"","aCompter":false,"note":""},{"id":"nova-ax-burner-30-servings-tangerine-baies","marque":"Nova-Pharma","cat":"Pre-workout & burners","produit":"Ax Burner - 30 servings","saveur":"Tangerine Baies","ref":null,"refTxt":"","aCompter":false,"note":""},{"id":"nova-ax-burner-30-servings-lotus-passion","marque":"Nova-Pharma","cat":"Pre-workout & burners","produit":"Ax Burner - 30 servings","saveur":"Lotus Passion","ref":null,"refTxt":"","aCompter":false,"note":""},{"id":"nova-ax-burner-30-servings-framboise-bleue","marque":"Nova-Pharma","cat":"Pre-workout & burners","produit":"Ax Burner - 30 servings","saveur":"Framboise Bleue","ref":768,"refTxt":"768","aCompter":false,"note":""},{"id":"nova-ax-burner-30-servings-dragon-fruit","marque":"Nova-Pharma","cat":"Pre-workout & burners","produit":"Ax Burner - 30 servings","saveur":"Dragon Fruit","ref":768,"refTxt":"768","aCompter":false,"note":""},{"id":"nova-ax-burner-30-servings-cyclone","marque":"Nova-Pharma","cat":"Pre-workout & burners","produit":"Ax Burner - 30 servings","saveur":"Cyclone","ref":768,"refTxt":"768","aCompter":false,"note":""},{"id":"nova-pure-burner-30-servings-framboise-bleue","marque":"Nova-Pharma","cat":"Pre-workout & burners","produit":"Pure Burner - 30 servings","saveur":"Framboise bleue","ref":1152,"refTxt":"768+384","aCompter":false,"note":"Un premier 768 a été raturé"},{"id":"nova-pure-burner-30-servings-dragon-fruit","marque":"Nova-Pharma","cat":"Pre-workout & burners","produit":"Pure Burner - 30 servings","saveur":"Dragon Fruit","ref":768,"refTxt":"768","aCompter":false,"note":""},{"id":"nova-pure-burner-30-servings-fraise-pomme-grenade","marque":"Nova-Pharma","cat":"Pre-workout & burners","produit":"Pure Burner - 30 servings","saveur":"Fraise Pomme Grenade","ref":null,"refTxt":"","aCompter":false,"note":""},{"id":"nova-pure-burner-30-servings-limonade-rose","marque":"Nova-Pharma","cat":"Pre-workout & burners","produit":"Pure Burner - 30 servings","saveur":"Limonade Rose","ref":768,"refTxt":"768","aCompter":false,"note":""},{"id":"nova-pure-burner-30-servings-cyclone","marque":"Nova-Pharma","cat":"Pre-workout & burners","produit":"Pure Burner - 30 servings","saveur":"Cyclone","ref":768,"refTxt":"768","aCompter":false,"note":"Ajout manuscrit"},{"id":"nova-punch-out-blue-razz","marque":"Nova-Pharma","cat":"Pre-workout & burners","produit":"Punch Out","saveur":"Blue Razz","ref":1536,"refTxt":"768+768","aCompter":false,"note":"Ajout manuscrit - hors liste imprimée"},{"id":"nova-punch-out-dragon-fruit","marque":"Nova-Pharma","cat":"Pre-workout & burners","produit":"Punch Out","saveur":"Dragon Fruit","ref":2304,"refTxt":"768+768+768","aCompter":false,"note":"Ajout manuscrit - hors liste imprimée"},{"id":"nova-punch-out-cyclone","marque":"Nova-Pharma","cat":"Pre-workout & burners","produit":"Punch Out","saveur":"Cyclone","ref":2304,"refTxt":"768+768+768","aCompter":false,"note":"Ajout manuscrit - hors liste imprimée"},{"id":"nova-punch-out-limonade","marque":"Nova-Pharma","cat":"Pre-workout & burners","produit":"Punch Out","saveur":"Limonade","ref":2304,"refTxt":"768+768+768","aCompter":false,"note":"Ajout manuscrit - hors liste imprimée"},{"id":"nova-box-12-zen-default","marque":"Nova-Pharma","cat":"BOX / Caisses","produit":"BOX 12 - Zen","saveur":"Default","ref":3456,"refTxt":"1728+1728","aCompter":false,"note":""},{"id":"nova-box-12-men-s-multivit-2-0-default","marque":"Nova-Pharma","cat":"BOX / Caisses","produit":"BOX 12 - Men's Multivit. 2.0","saveur":"Default","ref":null,"refTxt":"","aCompter":false,"note":""},{"id":"nova-box-12-hydroxia-default","marque":"Nova-Pharma","cat":"BOX / Caisses","produit":"BOX 12 - Hydroxia","saveur":"Default","ref":3444,"refTxt":"1944+1500","aCompter":false,"note":""},{"id":"nova-box-12-vitamin-d3-default","marque":"Nova-Pharma","cat":"BOX / Caisses","produit":"BOX 12 - Vitamin D3","saveur":"Default","ref":null,"refTxt":"","aCompter":false,"note":"Note manuscrite « 2 rangées / 1 palette » - à convertir en unités"},{"id":"nova-box-12-diva-gummies-default","marque":"Nova-Pharma","cat":"BOX / Caisses","produit":"BOX 12 - Diva Gummies","saveur":"Default","ref":null,"refTxt":"","aCompter":false,"note":""},{"id":"nova-box-12-oxia-default","marque":"Nova-Pharma","cat":"BOX / Caisses","produit":"BOX 12 - Oxia","saveur":"Default","ref":3456,"refTxt":"1728+1728","aCompter":false,"note":""},{"id":"nova-box-12-multi-femme-2-0-default","marque":"Nova-Pharma","cat":"BOX / Caisses","produit":"BOX 12 - Multi-Femme 2.0","saveur":"Default","ref":1509,"refTxt":"1509","aCompter":false,"note":""},{"id":"nova-box-12-dodo-melatonin-default","marque":"Nova-Pharma","cat":"BOX / Caisses","produit":"BOX 12 - Dodo Melatonin","saveur":"Default","ref":6508,"refTxt":"824+500+1728+1728+1728","aCompter":false,"note":"Detail note au bas de la page"},{"id":"nova-box-12-meno-pause-default","marque":"Nova-Pharma","cat":"BOX / Caisses","produit":"BOX 12 - Meno Pause","saveur":"Default","ref":6912,"refTxt":"1728+1728+1728+1728","aCompter":false,"note":""},{"id":"nova-box-12-omega-3-default","marque":"Nova-Pharma","cat":"BOX / Caisses","produit":"BOX 12 - Omega-3","saveur":"Default","ref":null,"refTxt":"","aCompter":false,"note":"Note manuscrite « 1 palette » - à convertir en unités"},{"id":"nova-box-12-multi-family-default","marque":"Nova-Pharma","cat":"BOX / Caisses","produit":"BOX 12 - Multi Family","saveur":"Default","ref":6816,"refTxt":"1728+1728+1632+1728","aCompter":false,"note":"Detail note au bas de la page"},{"id":"nova-box-12-cortixia-default","marque":"Nova-Pharma","cat":"BOX / Caisses","produit":"BOX 12 - Cortixia","saveur":"Default","ref":1728,"refTxt":"1728","aCompter":false,"note":""},{"id":"nova-box-12-mg-pro-default","marque":"Nova-Pharma","cat":"BOX / Caisses","produit":"BOX 12 - Mg-Pro","saveur":"Default","ref":1728,"refTxt":"1728","aCompter":false,"note":""},{"id":"nova-box-12-pro-bio-default","marque":"Nova-Pharma","cat":"BOX / Caisses","produit":"BOX 12 - Pro-Bio","saveur":"Default","ref":4323,"refTxt":"1728+1728+867","aCompter":false,"note":""},{"id":"nova-box-12-d3-gummies-default","marque":"Nova-Pharma","cat":"BOX / Caisses","produit":"BOX 12 - D3 Gummies","saveur":"Default","ref":1728,"refTxt":"1728","aCompter":false,"note":""},{"id":"nova-box-12-estradia-default","marque":"Nova-Pharma","cat":"BOX / Caisses","produit":"BOX 12 - Estradia","saveur":"Default","ref":2971,"refTxt":"1512+1459","aCompter":false,"note":"Detail note au bas de la page"},{"id":"nova-mandalas-shaker-neon","marque":"Nova-Pharma","cat":"Accessoires","produit":"Mandalas Shaker","saveur":"Neon","ref":null,"refTxt":"","aCompter":false,"note":""},{"id":"nova-glass-tumbler-bamboo-default","marque":"Nova-Pharma","cat":"Accessoires","produit":"Glass Tumbler Bamboo","saveur":"Default","ref":null,"refTxt":"","aCompter":false,"note":""},{"id":"nova-portable-electric-mixer-default","marque":"Nova-Pharma","cat":"Accessoires","produit":"Portable Electric Mixer","saveur":"Default","ref":null,"refTxt":"","aCompter":false,"note":""},{"id":"nova-travel-pill-case-default","marque":"Nova-Pharma","cat":"Accessoires","produit":"Travel Pill Case","saveur":"Default","ref":null,"refTxt":"","aCompter":false,"note":""},{"id":"spar-pompe-fuzion-sans-stim-425-g-cerise","marque":"Spark","cat":"Pre-workout","produit":"Pompe Fuzion (sans stim.) - 425 g","saveur":"Cerise","ref":null,"refTxt":"à compter","aCompter":true,"note":"Marque « bcp » sur la feuille"},{"id":"spar-pompe-fuzion-sans-stim-425-g-lime","marque":"Spark","cat":"Pre-workout","produit":"Pompe Fuzion (sans stim.) - 425 g","saveur":"Lime","ref":null,"refTxt":"à compter","aCompter":true,"note":"Marque « bcp » sur la feuille"},{"id":"spar-pompe-fuzion-sans-stim-425-g-rocket-popsicle","marque":"Spark","cat":"Pre-workout","produit":"Pompe Fuzion (sans stim.) - 425 g","saveur":"Rocket Popsicle","ref":null,"refTxt":"à compter","aCompter":true,"note":"Marque de repetition (idem « bcp ») - à confirmer"},{"id":"spar-pre-fuzion-ultime-275-g-framboise-bleue","marque":"Spark","cat":"Pre-workout","produit":"Pre-Fuzion (ultime) - 275 g","saveur":"Framboise Bleue","ref":null,"refTxt":"à compter","aCompter":true,"note":"Marque de repetition (idem « bcp ») - à confirmer"},{"id":"spar-pre-fuzion-ultime-275-g-peche","marque":"Spark","cat":"Pre-workout","produit":"Pre-Fuzion (ultime) - 275 g","saveur":"Pêche","ref":null,"refTxt":"à compter","aCompter":true,"note":"Marque de repetition (idem « bcp ») - à confirmer"},{"id":"spar-pre-fuzion-ultime-275-g-punch-aux-fruits","marque":"Spark","cat":"Pre-workout","produit":"Pre-Fuzion (ultime) - 275 g","saveur":"Punch aux Fruits","ref":null,"refTxt":"à compter","aCompter":true,"note":"Marque de repetition (idem « bcp ») - à confirmer"},{"id":"spar-boisson-energisante-473-ml-gummy-bear","marque":"Spark","cat":"Boissons","produit":"Boisson énergisante - 473 ml","saveur":"Gummy Bear","ref":900,"refTxt":"900","aCompter":false,"note":""},{"id":"spar-boisson-energisante-473-ml-cerise","marque":"Spark","cat":"Boissons","produit":"Boisson énergisante - 473 ml","saveur":"Cerise","ref":13000,"refTxt":"7000+2000+4000","aCompter":false,"note":""},{"id":"spar-boisson-energisante-473-ml-limonade-peche","marque":"Spark","cat":"Boissons","produit":"Boisson énergisante - 473 ml","saveur":"Limonade Pêche","ref":8000,"refTxt":"8000","aCompter":false,"note":""},{"id":"spar-boisson-energisante-473-ml-gros-melon","marque":"Spark","cat":"Boissons","produit":"Boisson énergisante - 473 ml","saveur":"Gros Melon","ref":1800,"refTxt":"1800","aCompter":false,"note":""},{"id":"spar-boisson-energisante-473-ml-pomme-verte","marque":"Spark","cat":"Boissons","produit":"Boisson énergisante - 473 ml","saveur":"Pomme Verte","ref":1800,"refTxt":"1800","aCompter":false,"note":""},{"id":"spar-boisson-energisante-473-ml-fraise","marque":"Spark","cat":"Boissons","produit":"Boisson énergisante - 473 ml","saveur":"Fraise","ref":8100,"refTxt":"6100+2000","aCompter":false,"note":""},{"id":"spar-boisson-energisante-473-ml-raisin","marque":"Spark","cat":"Boissons","produit":"Boisson énergisante - 473 ml","saveur":"Raisin","ref":8000,"refTxt":"8000","aCompter":false,"note":""},{"id":"spar-boisson-energisante-ed-limitee-473-ml-disco","marque":"Spark","cat":"Boissons","produit":"Boisson énergisante - Éd. Limitée - 473 ml","saveur":"Disco","ref":0,"refTxt":"0","aCompter":false,"note":""},{"id":"spar-boisson-energisante-ed-limitee-473-ml-saveur-originale","marque":"Spark","cat":"Boissons","produit":"Boisson énergisante - Éd. Limitée - 473 ml","saveur":"Saveur Originale","ref":0,"refTxt":"0","aCompter":false,"note":""},{"id":"spar-spark-slim-boisson-energisante-355-ml-originale","marque":"Spark","cat":"Boissons","produit":"Spark Slim - Boisson énergisante - 355 ml","saveur":"Originale","ref":5000,"refTxt":"5000","aCompter":false,"note":""},{"id":"spar-spark-slim-boisson-energisante-355-ml-limonade-rose","marque":"Spark","cat":"Boissons","produit":"Spark Slim - Boisson énergisante - 355 ml","saveur":"Limonade Rose","ref":2000,"refTxt":"2000","aCompter":false,"note":"Écrit « LR »"},{"id":"spar-boisson-electrolytes-framboise-bleue","marque":"Spark","cat":"Boissons","produit":"Boisson electrolytes","saveur":"Framboise Bleue","ref":3000,"refTxt":"3000","aCompter":false,"note":"Écrit « FB »"},{"id":"spar-boisson-electrolytes-punch-aux-fruits","marque":"Spark","cat":"Boissons","produit":"Boisson electrolytes","saveur":"Punch aux Fruits","ref":2000,"refTxt":"2000","aCompter":false,"note":"Écrit « PAF »"},{"id":"spar-boisson-electrolytes-peche","marque":"Spark","cat":"Boissons","produit":"Boisson electrolytes","saveur":"Pêche","ref":4000,"refTxt":"4000","aCompter":false,"note":""},{"id":"spar-boisson-electrolytes-lime","marque":"Spark","cat":"Boissons","produit":"Boisson electrolytes","saveur":"Lime","ref":1500,"refTxt":"1500","aCompter":false,"note":""},{"id":"spar-boisson-marchandise-framboise-bleue","marque":"Spark","cat":"Marchandise & accessoires","produit":"Boisson (marchandise)","saveur":"Framboise Bleue","ref":750,"refTxt":"750","aCompter":false,"note":"Écrit « Boisson FB » sous Marchandise"},{"id":"spar-electrolytes-poudre-punch","marque":"Spark","cat":"Électrolytes poudre","produit":"Electrolytes poudre","saveur":"Punch","ref":514,"refTxt":"21*24+10","aCompter":false,"note":"Écrit 21 x 24 + 10"},{"id":"spar-electrolytes-poudre-framboise-bleue","marque":"Spark","cat":"Électrolytes poudre","produit":"Electrolytes poudre","saveur":"Framboise Bleue","ref":610,"refTxt":"25*24+10","aCompter":false,"note":"Écrit 25 x 24 + 10"},{"id":"spar-electrolytes-poudre-lime","marque":"Spark","cat":"Électrolytes poudre","produit":"Electrolytes poudre","saveur":"Lime","ref":490,"refTxt":"20*24+10","aCompter":false,"note":"Écrit 20 x 24 + 10"},{"id":"spar-shaker-spark-26-oz","marque":"Spark","cat":"Marchandise & accessoires","produit":"Shaker Spark - 26 oz","saveur":"","ref":null,"refTxt":"","aCompter":false,"note":""},{"id":"spar-tuque-spark","marque":"Spark","cat":"Marchandise & accessoires","produit":"Tuque Spark","saveur":"","ref":null,"refTxt":"","aCompter":false,"note":""},{"id":"spar-crewneck-spark-sweatshirt-tp-p-m-noir","marque":"Spark","cat":"Marchandise & accessoires","produit":"Crewneck Spark (sweatshirt) - TP / P / M","saveur":"Noir","ref":null,"refTxt":"","aCompter":false,"note":""},{"id":"spar-crewneck-spark-sweatshirt-g-tg-ttg-noir","marque":"Spark","cat":"Marchandise & accessoires","produit":"Crewneck Spark (sweatshirt) - G / TG / TTG","saveur":"Noir","ref":null,"refTxt":"","aCompter":false,"note":""},{"id":"spar-t-shirt-samourai-mma-dry-fit-tp-p-m","marque":"Spark","cat":"Marchandise & accessoires","produit":"T-Shirt Samouraï MMA Dry-Fit - TP / P / M","saveur":"","ref":null,"refTxt":"","aCompter":false,"note":""},{"id":"spar-t-shirt-samourai-mma-dry-fit-g-tg-ttg","marque":"Spark","cat":"Marchandise & accessoires","produit":"T-Shirt Samouraï MMA Dry-Fit - G / TG / TTG","saveur":"","ref":null,"refTxt":"","aCompter":false,"note":""},{"id":"spar-casquette-snapback-spark","marque":"Spark","cat":"Marchandise & accessoires","produit":"Casquette Snapback Spark","saveur":"","ref":null,"refTxt":"","aCompter":false,"note":""},{"id":"spar-ensemble-performance-influenceurs-coffret-pre-fuzion-po","marque":"Spark","cat":"Marchandise & accessoires","produit":"Ensemble Performance Influenceurs (coffret)","saveur":"Pre-Fuzion + Pompe Fuzion","ref":null,"refTxt":"","aCompter":false,"note":""},{"id":"fit-sauce-bbq-la-funky","marque":"Fit Cook Foodz","cat":"Sauces & condiments","produit":"Sauce BBQ - La Funky","saveur":"","ref":2750,"refTxt":"2750","aCompter":false,"note":""},{"id":"fit-sauce-bbq-la-legendaire","marque":"Fit Cook Foodz","cat":"Sauces & condiments","produit":"Sauce BBQ - La Légendaire","saveur":"","ref":3100,"refTxt":"3000+100","aCompter":false,"note":""},{"id":"fit-sauce-bbq-la-patriote","marque":"Fit Cook Foodz","cat":"Sauces & condiments","produit":"Sauce BBQ - La Patriote","saveur":"","ref":2800,"refTxt":"2800","aCompter":false,"note":""},{"id":"fit-la-bangkok-chili-doux-thai","marque":"Fit Cook Foodz","cat":"Sauces & condiments","produit":"La Bangkok","saveur":"Chili doux thaï","ref":2250,"refTxt":"2250","aCompter":false,"note":""},{"id":"fit-la-fogo-piri-piri","marque":"Fit Cook Foodz","cat":"Sauces & condiments","produit":"La Fogo","saveur":"Piri-Piri","ref":3000,"refTxt":"3000","aCompter":false,"note":""},{"id":"fit-la-ninja-teriyaki","marque":"Fit Cook Foodz","cat":"Sauces & condiments","produit":"La Ninja","saveur":"Teriyaki","ref":2500,"refTxt":"2500","aCompter":false,"note":""},{"id":"fit-la-mielleuse-moutarde-au-miel","marque":"Fit Cook Foodz","cat":"Sauces & condiments","produit":"La Mielleuse","saveur":"Moutarde au miel","ref":2750,"refTxt":"2750","aCompter":false,"note":""},{"id":"fit-pimp-my-ribs","marque":"Fit Cook Foodz","cat":"Sauces & condiments","produit":"Pimp My Ribs","saveur":"","ref":3532,"refTxt":"2500+1032","aCompter":false,"note":""},{"id":"fit-la-big-sauce-a-burger","marque":"Fit Cook Foodz","cat":"Sauces & condiments","produit":"La Big","saveur":"Sauce à burger","ref":6000,"refTxt":"6000","aCompter":false,"note":""},{"id":"fit-la-cheezy-fromage","marque":"Fit Cook Foodz","cat":"Sauces & condiments","produit":"La Cheezy","saveur":"Fromage","ref":2000,"refTxt":"2000","aCompter":false,"note":""},{"id":"fit-la-mayo-epicee","marque":"Fit Cook Foodz","cat":"Sauces & condiments","produit":"La Mayo épicée","saveur":"","ref":400,"refTxt":"400","aCompter":false,"note":""},{"id":"fit-le-ketch-ketchup","marque":"Fit Cook Foodz","cat":"Sauces & condiments","produit":"Le Ketch","saveur":"Ketchup","ref":1750,"refTxt":"1750","aCompter":false,"note":""},{"id":"fit-la-squick-squick-poutine","marque":"Fit Cook Foodz","cat":"Sauces & condiments","produit":"La Squick Squick","saveur":"Poutine","ref":900,"refTxt":"900","aCompter":false,"note":""},{"id":"fit-la-sud-ouest","marque":"Fit Cook Foodz","cat":"Sauces & condiments","produit":"La Sud-Ouest","saveur":"","ref":2500,"refTxt":"2500","aCompter":false,"note":""},{"id":"fit-vinaigrette-l-italienne","marque":"Fit Cook Foodz","cat":"Vinaigrettes","produit":"Vinaigrette L'Italienne","saveur":"","ref":3720,"refTxt":"3720","aCompter":false,"note":""},{"id":"fit-vinaigrette-la-ranch","marque":"Fit Cook Foodz","cat":"Vinaigrettes","produit":"Vinaigrette La Ranch","saveur":"","ref":3000,"refTxt":"3000","aCompter":false,"note":""},{"id":"fit-vinaigrette-la-sesame","marque":"Fit Cook Foodz","cat":"Vinaigrettes","produit":"Vinaigrette La Sésame","saveur":"","ref":3750,"refTxt":"3750","aCompter":false,"note":""},{"id":"fit-sauce-dessert-l-aphrodisiaque-chocolat","marque":"Fit Cook Foodz","cat":"Sauces dessert","produit":"Sauce dessert L'Aphrodisiaque","saveur":"Chocolat","ref":2000,"refTxt":"2000","aCompter":false,"note":""},{"id":"fit-sauce-dessert-la-colleuse-caramel-fleur-de-sel","marque":"Fit Cook Foodz","cat":"Sauces dessert","produit":"Sauce dessert La Colleuse","saveur":"Caramel fleur de sel","ref":2750,"refTxt":"2750","aCompter":false,"note":""},{"id":"fit-sauce-dessert-la-pitoune-erable","marque":"Fit Cook Foodz","cat":"Sauces dessert","produit":"Sauce dessert La Pitoune","saveur":"Érable","ref":2500,"refTxt":"2500","aCompter":false,"note":"Un premier chiffre a été raturé"},{"id":"fit-sauce-dessert-la-sensuelle-framboise","marque":"Fit Cook Foodz","cat":"Sauces dessert","produit":"Sauce dessert La Sensuelle","saveur":"Framboise","ref":2500,"refTxt":"2500","aCompter":false,"note":""},{"id":"fit-sirop-a-cafe-le-colleux-caramel-fleur-de-sel","marque":"Fit Cook Foodz","cat":"Sirops à café","produit":"Sirop à café Le Colleux","saveur":"Caramel / fleur de sel","ref":2500,"refTxt":"2500","aCompter":false,"note":""},{"id":"fit-sirop-a-cafe-le-comique","marque":"Fit Cook Foodz","cat":"Sirops à café","produit":"Sirop à café Le Comique","saveur":"","ref":3000,"refTxt":"3000","aCompter":false,"note":""},{"id":"fit-sirop-a-cafe-le-coquin-moka","marque":"Fit Cook Foodz","cat":"Sirops à café","produit":"Sirop à café Le Coquin","saveur":"Moka","ref":2500,"refTxt":"2500","aCompter":false,"note":""},{"id":"fit-sirop-a-cafe-le-cozy-epices-d-automne","marque":"Fit Cook Foodz","cat":"Sirops à café","produit":"Sirop à café Le Cozy","saveur":"Épices d'automne","ref":200,"refTxt":"200","aCompter":false,"note":""},{"id":"fit-sirop-a-cafe-le-gland-noisette","marque":"Fit Cook Foodz","cat":"Sirops à café","produit":"Sirop à café Le Gland","saveur":"Noisette","ref":1500,"refTxt":"1500","aCompter":false,"note":""},{"id":"fit-sirop-a-cafe-le-praline","marque":"Fit Cook Foodz","cat":"Sirops à café","produit":"Sirop à café Le Praliné","saveur":"","ref":1500,"refTxt":"1500","aCompter":false,"note":""},{"id":"fit-sirop-a-cafe-le-veloute-vanille","marque":"Fit Cook Foodz","cat":"Sirops à café","produit":"Sirop à café Le Velouté","saveur":"Vanille","ref":2500,"refTxt":"2500","aCompter":false,"note":""},{"id":"fit-sirop-a-cocktail-la-framboise","marque":"Fit Cook Foodz","cat":"Sirops à cocktail","produit":"Sirop à cocktail La Framboise","saveur":"","ref":2000,"refTxt":"2000","aCompter":false,"note":""},{"id":"fit-sirop-a-cocktail-la-grenadine","marque":"Fit Cook Foodz","cat":"Sirops à cocktail","produit":"Sirop à cocktail La Grenadine","saveur":"","ref":2500,"refTxt":"2500","aCompter":false,"note":""},{"id":"fit-sirop-a-cocktail-la-lime","marque":"Fit Cook Foodz","cat":"Sirops à cocktail","produit":"Sirop à cocktail La Lime","saveur":"","ref":1200,"refTxt":"1200","aCompter":false,"note":""},{"id":"fit-sirop-a-cocktail-la-peche","marque":"Fit Cook Foodz","cat":"Sirops à cocktail","produit":"Sirop à cocktail La Pêche","saveur":"","ref":2000,"refTxt":"2000","aCompter":false,"note":""},{"id":"fit-sirop-a-cocktail-le-litchi","marque":"Fit Cook Foodz","cat":"Sirops à cocktail","produit":"Sirop à cocktail Le Litchi","saveur":"","ref":1500,"refTxt":"1500","aCompter":false,"note":""},{"id":"fit-assaisonnement-passe-partout","marque":"Fit Cook Foodz","cat":"Assaisonnements","produit":"Assaisonnement Passe-Partout","saveur":"","ref":1500,"refTxt":"1500","aCompter":false,"note":""},{"id":"fit-assaisonnement-pour-grillades","marque":"Fit Cook Foodz","cat":"Assaisonnements","produit":"Assaisonnement Pour Grillades","saveur":"","ref":6000,"refTxt":"6000","aCompter":false,"note":""},{"id":"fit-assaisonnement-tex-mex","marque":"Fit Cook Foodz","cat":"Assaisonnements","produit":"Assaisonnement Tex-Mex","saveur":"","ref":3000,"refTxt":"3000","aCompter":false,"note":""},{"id":"fit-huile-de-cameline-vapo-original","marque":"Fit Cook Foodz","cat":"Huiles de caméline","produit":"Huile de caméline (vapo)","saveur":"Original","ref":4750,"refTxt":"4750","aCompter":false,"note":""},{"id":"fit-huile-de-cameline-vapo-saveur-de-beurre","marque":"Fit Cook Foodz","cat":"Huiles de caméline","produit":"Huile de caméline (vapo)","saveur":"Saveur de beurre","ref":4750,"refTxt":"4750","aCompter":false,"note":""},{"id":"fit-melange-proteine-crepes-gaufres-original","marque":"Fit Cook Foodz","cat":"Mélanges protéinés","produit":"Mélange protéiné (crêpes / gaufres)","saveur":"Original","ref":null,"refTxt":"à compter","aCompter":true,"note":"Marque « bcp » sur la feuille"},{"id":"fit-melange-proteine-crepes-gaufres-chocolat","marque":"Fit Cook Foodz","cat":"Mélanges protéinés","produit":"Mélange protéiné (crêpes / gaufres)","saveur":"Chocolat","ref":null,"refTxt":"à compter","aCompter":true,"note":"Marque « bcp » sur la feuille"},{"id":"fit-melange-proteine-pate-a-pizza-nature","marque":"Fit Cook Foodz","cat":"Mélanges protéinés","produit":"Mélange protéiné (pâte à pizza)","saveur":"Nature","ref":null,"refTxt":"à compter","aCompter":true,"note":"Marque « bcp » sur la feuille"},{"id":"fit-ensemble-shaker-3-pieces","marque":"Fit Cook Foodz","cat":"Sauces & condiments","produit":"Ensemble Shaker 3 pieces","saveur":"","ref":null,"refTxt":"à compter","aCompter":true,"note":"Marque « bcp » sur la feuille"},{"id":"fit-pompe-a-sirops-noir","marque":"Fit Cook Foodz","cat":"Sauces & condiments","produit":"Pompe a Sirops","saveur":"Noir","ref":null,"refTxt":"à compter","aCompter":true,"note":"Marque « bcp » sur la feuille"},{"id":"fit-pompe-a-sirops-or","marque":"Fit Cook Foodz","cat":"Sauces & condiments","produit":"Pompe a Sirops","saveur":"Or","ref":null,"refTxt":"à compter","aCompter":true,"note":"Marque « bcp » sur la feuille"},{"id":"fit-tablier-de-cuisine","marque":"Fit Cook Foodz","cat":"Accessoires","produit":"Tablier de cuisine","saveur":"","ref":null,"refTxt":"","aCompter":false,"note":"Aucune quantité inscrite"},{"id":"fit-livre-tome-1-ca-pas-d-l-air","marque":"Fit Cook Foodz","cat":"Livres & magazines","produit":"Livre Tome 1 - Ça pas d'l'air","saveur":"","ref":130,"refTxt":"26*5","aCompter":false,"note":"Écrit 26 x 5 (un chiffre raturé avant) - à valider"},{"id":"fit-livre-tome-2","marque":"Fit Cook Foodz","cat":"Livres & magazines","produit":"Livre Tome 2","saveur":"","ref":221,"refTxt":"26*8+13","aCompter":false,"note":"Écrit 26 x 8 + 13"},{"id":"fit-livre-tome-3","marque":"Fit Cook Foodz","cat":"Livres & magazines","produit":"Livre Tome 3","saveur":"","ref":182,"refTxt":"26*7","aCompter":false,"note":"Écrit 26 x 7"},{"id":"fit-livre-les-fit-lunchs","marque":"Fit Cook Foodz","cat":"Livres & magazines","produit":"Livre Les Fit Lunchs","saveur":"","ref":0,"refTxt":"0","aCompter":false,"note":""},{"id":"fit-livre-les-fit-lunchs-tome-2","marque":"Fit Cook Foodz","cat":"Livres & magazines","produit":"Livre Les Fit Lunchs Tome 2","saveur":"","ref":28,"refTxt":"28","aCompter":false,"note":""},{"id":"fit-livre-mixologie-avec-le-fit-cook","marque":"Fit Cook Foodz","cat":"Livres & magazines","produit":"Livre Mixologie avec le Fit Cook","saveur":"","ref":456,"refTxt":"76*6","aCompter":false,"note":"Écrit 76 x 6"},{"id":"fit-livre-who-knew-vol-1-anglais","marque":"Fit Cook Foodz","cat":"Livres & magazines","produit":"Livre Who Knew... Vol. 1 (anglais)","saveur":"","ref":50,"refTxt":"50","aCompter":false,"note":""},{"id":"fit-le-mag-1","marque":"Fit Cook Foodz","cat":"Livres & magazines","produit":"Le Mag 1","saveur":"","ref":200,"refTxt":"4*50","aCompter":false,"note":"Écrit 4 x 50"},{"id":"fit-le-mag-2","marque":"Fit Cook Foodz","cat":"Livres & magazines","produit":"Le Mag 2","saveur":"","ref":532,"refTxt":"7*76","aCompter":false,"note":"Écrit 7 x 76"},{"id":"fit-le-mag-3","marque":"Fit Cook Foodz","cat":"Livres & magazines","produit":"Le Mag 3","saveur":"","ref":684,"refTxt":"9*76","aCompter":false,"note":"Écrit 9 x 76"},{"id":"fit-chapitre-21","marque":"Fit Cook Foodz","cat":"Livres & magazines","produit":"Chapitre 21","saveur":"","ref":4000,"refTxt":"4000","aCompter":false,"note":"Ajout manuscrit au bas de la feuille (un chiffre raturé avant)"},{"id":"fit-carte-cadeau-25","marque":"Fit Cook Foodz","cat":"Accessoires","produit":"Carte-cadeau 25 $","saveur":"","ref":null,"refTxt":"","aCompter":false,"note":"Aucune quantité inscrite"}]</script>
+<script>
+(function(){
+"use strict";
+var ITEMS = JSON.parse(document.getElementById("catalogue").textContent);
+var BRANDCLASS = {"Nova-Pharma":"nova","Spark":"spark","Fit Cook Foodz":"fitcook"};
+var TABLETTES = ["A","B","C","D"];
+var counts = Object.create(null);
+var LS = "comptage-shopsante-v1";
+/* Point de synchro : URL de l'application web Apps Script.
+   Peut aussi etre fournie par ?api=... ou en touchant le badge de synchro. */
+var ENDPOINT = "__ENDPOINT__";
+var QKEY = LS + "-file";
+var queue = [], flushing = false, pulling = false, lastPull = 0;
+var cur = null, calc = {c:"",u:"",r:""}, slot = "c", blocs = [], flagged = false;
+var ACTIVE = {r:1, s:1, t:"A"};
+var assignMode = false, groupByLoc = false;
+var locActiveCtl = null, locProductCtl = null;
+
+/* ---------- storage ---------- */
+function loadLocal(){
+  try{ var raw = localStorage.getItem(LS); if(raw) counts = JSON.parse(raw) || {}; }catch(e){}
+  try{
+    var a = JSON.parse(localStorage.getItem(LS + "-loc") || "null");
+    if(a && a.r) ACTIVE = {r:a.r, s:a.s, t:a.t};
+  }catch(e){}
+}
+function saveLocal(){
+  try{ localStorage.setItem(LS, JSON.stringify(counts)); }catch(e){}
+}
+function saveActive(){
+  try{ localStorage.setItem(LS + "-loc", JSON.stringify(ACTIVE)); }catch(e){}
+}
+function who(){ return (document.getElementById("who").value || "").trim(); }
+
+/* ---------- helpers ---------- */
+function fmt(n){ return (n === null || n === undefined || n === "") ? "—" : String(n).replace(/\B(?=(\d{3})+(?!\d))/g, " "); }
+function nz(v){ var n = parseInt(v, 10); return isNaN(n) ? 0 : n; }
+function blocTotal(b){ return nz(b.c) * nz(b.u) + nz(b.r); }
+function recTotal(r){
+  if(!r) return null;
+  if(r.zero) return 0;
+  if(!r.blocs || !r.blocs.length) return null;
+  return r.blocs.reduce(function(s, b){ return s + blocTotal(b); }, 0);
+}
+function isCounted(r){ return !!r && (r.zero || (r.blocs && r.blocs.length)); }
+function hasLoc(r){ return !!r && !!r.rang; }
+function locOf(r){ return hasLoc(r) ? {r:r.rang, s:r.sect, t:r.tabl || ""} : null; }
+function locLabel(l){
+  if(!l || !l.r) return "";
+  return "R" + l.r + " · S" + l.s + (l.t ? " · " + l.t : "");
+}
+function locLong(l){
+  if(!l || !l.r) return "Sans emplacement";
+  return "Rangée " + l.r + " · Section " + l.s;
+}
+function locKey(r){ return hasLoc(r) ? (r.rang + "-" + r.sect) : ""; }
+
+function expClass(d){
+  if(!d) return "";
+  var t = new Date(d + "T00:00:00").getTime() - Date.now();
+  if(isNaN(t)) return "";
+  if(t < 0) return "exp";
+  return t < 180 * 864e5 ? "warn" : "";
+}
+
+function toast(msg){
+  var t = document.getElementById("toast");
+  t.textContent = msg; t.classList.add("show");
+  clearTimeout(t._t); t._t = setTimeout(function(){ t.classList.remove("show"); }, 2200);
+}
+
+/* ---------- location control ---------- */
+function buildLoc(host, get, set, opts){
+  opts = opts || {};
+  host.innerHTML = "";
+  function group(label, key, min){
+    var g = document.createElement("div");
+    g.className = "locgrp";
+    var l = document.createElement("span"); l.className = "lbl"; l.textContent = label;
+    var minus = document.createElement("button");
+    minus.type = "button"; minus.className = "stp"; minus.textContent = "−";
+    minus.setAttribute("aria-label", "Diminuer " + label.toLowerCase());
+    var val = document.createElement("span"); val.className = "locval";
+    var plus = document.createElement("button");
+    plus.type = "button"; plus.className = "stp"; plus.textContent = "+";
+    plus.setAttribute("aria-label", "Augmenter " + label.toLowerCase());
+    minus.addEventListener("click", function(){
+      var v = get(); v[key] = Math.max(min, (v[key] || min) - 1); set(v); paint();
+    });
+    plus.addEventListener("click", function(){
+      var v = get(); v[key] = Math.min(99, (v[key] || 0) + 1); set(v); paint();
+    });
+    g.appendChild(l); g.appendChild(minus); g.appendChild(val); g.appendChild(plus);
+    g._val = val;
+    return g;
+  }
+  var gr = group("Rangée", "r", opts.allowNone ? 0 : 1);
+  var gs = group("Section", "s", opts.allowNone ? 0 : 1);
+  var gt = document.createElement("div");
+  gt.className = "locgrp";
+  var lt = document.createElement("span"); lt.className = "lbl"; lt.textContent = "Tablette";
+  gt.appendChild(lt);
+  var seg = document.createElement("div"); seg.className = "seg";
+  var btns = {};
+  TABLETTES.forEach(function(t){
+    var b = document.createElement("button");
+    b.type = "button"; b.textContent = t;
+    b.addEventListener("click", function(){
+      var v = get(); v.t = (v.t === t ? "" : t); set(v); paint();
+    });
+    btns[t] = b; seg.appendChild(b);
+  });
+  gt.appendChild(seg);
+  host.appendChild(gr); host.appendChild(gs); host.appendChild(gt);
+
+  if(opts.allowNone){
+    var clear = document.createElement("button");
+    clear.type = "button"; clear.className = "btn";
+    clear.textContent = "Retirer l'emplacement";
+    clear.addEventListener("click", function(){ set({r:0, s:0, t:""}); paint(); });
+    host.appendChild(clear);
+  }
+
+  function paint(){
+    var v = get();
+    gr._val.textContent = v.r ? v.r : "—";
+    gs._val.textContent = v.s ? v.s : "—";
+    TABLETTES.forEach(function(t){
+      btns[t].setAttribute("aria-pressed", v.t === t ? "true" : "false");
+    });
+    if(opts.onChange) opts.onChange(v);
+  }
+  paint();
+  return {refresh: paint};
+}
+
+/* ---------- filters ---------- */
+var filters = {brands:{}, reste:false, q:"", loc:""};
+
+function visible(){
+  var anyBrand = Object.keys(filters.brands).some(function(k){ return filters.brands[k]; });
+  var q = filters.q.toLowerCase();
+  return ITEMS.filter(function(it){
+    if(anyBrand && !filters.brands[it.marque]) return false;
+    if(filters.reste && isCounted(counts[it.id])) return false;
+    if(filters.loc){
+      var k = locKey(counts[it.id]);
+      if(filters.loc === "__none" ? k !== "" : k !== filters.loc) return false;
+    }
+    if(q && (it.produit + " " + it.saveur + " " + it.cat).toLowerCase().indexOf(q) < 0) return false;
+    return true;
+  });
+}
+
+/* ---------- rendering ---------- */
+function render(){
+  var list = document.getElementById("list");
+  var vis = visible();
+  list.innerHTML = "";
+  if(!vis.length){
+    list.innerHTML = '<p class="empty">Aucun produit ne correspond à ce filtre.</p>';
+    progress();
+    return;
+  }
+  var groups = [], byKey = Object.create(null);
+  vis.forEach(function(it){
+    var r = counts[it.id], k, title, sub, sort;
+    if(groupByLoc){
+      var l = locOf(r);
+      k = l ? (pad(l.r) + "-" + pad(l.s)) : "zzz";
+      title = locLong(l);
+      sub = l ? "" : "à assigner";
+      sort = k;
+    } else {
+      k = it.marque + " · " + it.cat;
+      title = it.cat; sub = it.marque; sort = null;
+    }
+    if(!byKey[k]){ byKey[k] = {key:k, title:title, sub:sub, items:[]}; groups.push(byKey[k]); }
+    byKey[k].items.push(it);
+  });
+  if(groupByLoc) groups.sort(function(a, b){ return a.key < b.key ? -1 : a.key > b.key ? 1 : 0; });
+
+  groups.forEach(function(g){
+    if(groupByLoc){
+      g.items.sort(function(a, b){
+        var ta = (counts[a.id] && counts[a.id].tabl) || "Z";
+        var tb = (counts[b.id] && counts[b.id].tabl) || "Z";
+        if(ta !== tb) return ta < tb ? -1 : 1;
+        return a.produit < b.produit ? -1 : a.produit > b.produit ? 1 : 0;
+      });
+    }
+    var h = document.createElement("div");
+    h.className = "cathead";
+    h.innerHTML = '<h2></h2><span class="cnt"></span><span class="rule"></span>';
+    h.querySelector("h2").textContent = g.title;
+    var c = g.items.filter(function(i){ return isCounted(counts[i.id]); }).length;
+    h.querySelector(".cnt").textContent = (g.sub ? g.sub + " · " : "") + c + "/" + g.items.length;
+    list.appendChild(h);
+    var wrap = document.createElement("div");
+    wrap.className = "rows";
+    g.items.forEach(function(it){ wrap.appendChild(rowEl(it)); });
+    list.appendChild(wrap);
+  });
+  progress();
+}
+function pad(n){ return ("00" + (n || 0)).slice(-3); }
+
+function rowEl(it){
+  var r = counts[it.id], tot = recTotal(r);
+  var b = document.createElement("button");
+  b.className = "row " + BRANDCLASS[it.marque] + (isCounted(r) ? " done" : "") + (r && r.flag ? " flagged" : "");
+  b.type = "button";
+  b.addEventListener("click", function(){
+    if(assignMode) assign(it); else openSheet(it);
+  });
+
+  var main = document.createElement("div");
+  main.className = "rmain";
+  var nm = document.createElement("div"); nm.className = "rname"; nm.textContent = it.produit;
+  main.appendChild(nm);
+  if(it.saveur && it.saveur !== "-"){
+    var fl = document.createElement("div"); fl.className = "rflav"; fl.textContent = it.saveur;
+    main.appendChild(fl);
+  }
+  var meta = document.createElement("div"); meta.className = "rmeta";
+  var l = locOf(r);
+  if(l) meta.appendChild(tag(locLabel(l), "loc"));
+  if(groupByLoc) meta.appendChild(tag(it.marque === "Fit Cook Foodz" ? "Fit Cook" : it.marque, ""));
+  if(r && r.lot) meta.appendChild(tag("Lot " + r.lot, ""));
+  if(r && r.exp) meta.appendChild(tag("Exp. " + r.exp.slice(0, 7), expClass(r.exp)));
+  if(r && r.flag) meta.appendChild(tag("À vérifier", "warn"));
+  if(it.aCompter) meta.appendChild(tag("Jamais compté", "warn"));
+  if(r && r.par) meta.appendChild(tag(r.par, ""));
+  if(meta.children.length) main.appendChild(meta);
+  b.appendChild(main);
+
+  var right = document.createElement("div"); right.className = "rright";
+  var box = document.createElement("div");
+  var q = document.createElement("div");
+  q.className = "rqty num" + (tot === null ? " none" : " ok");
+  q.textContent = tot === null ? "—" : fmt(tot);
+  box.appendChild(q);
+  var sub = document.createElement("div"); sub.className = "rsub";
+  sub.textContent = it.ref === null ? "réf. sept. : —" : "réf. sept. : " + fmt(it.ref);
+  box.appendChild(sub);
+  right.appendChild(box);
+  var ch = document.createElement("span"); ch.className = "chev";
+  ch.textContent = assignMode ? "⌖" : "›";
+  right.appendChild(ch);
+  b.appendChild(right);
+  return b;
+}
+function tag(txt, cls){
+  var s = document.createElement("span");
+  s.className = "tag" + (cls ? " " + cls : "");
+  s.textContent = txt; return s;
+}
+
+function progress(){
+  var done = 0, flags = 0;
+  ITEMS.forEach(function(it){
+    var r = counts[it.id];
+    if(isCounted(r)) done++;
+    if(r && r.flag) flags++;
+  });
+  var tot = ITEMS.length;
+  document.getElementById("pDone").textContent = done;
+  document.getElementById("pTot").textContent = tot;
+  document.getElementById("pFlag").textContent = flags;
+  document.getElementById("barDone").style.width = (100 * Math.max(0, done - flags) / tot) + "%";
+  document.getElementById("barFlag").style.width = (100 * flags / tot) + "%";
+
+  var used = {}, nNone = 0;
+  ITEMS.forEach(function(it){
+    var k = locKey(counts[it.id]);
+    if(k) used[k] = (used[k] || 0) + 1; else nNone++;
+  });
+  var sel = document.getElementById("fLoc"), keep = sel.value;
+  var opts = ['<option value="">Tous les emplacements</option>'];
+  Object.keys(used).sort(function(a, b){
+    var A = a.split("-").map(Number), B = b.split("-").map(Number);
+    return A[0] - B[0] || A[1] - B[1];
+  }).forEach(function(k){
+    var p = k.split("-");
+    opts.push('<option value="' + k + '">Rangée ' + p[0] + " · Section " + p[1] + " (" + used[k] + ")</option>");
+  });
+  if(nNone) opts.push('<option value="__none">Sans emplacement (' + nNone + ")</option>");
+  sel.innerHTML = opts.join("");
+  sel.value = keep;
+  if(sel.value !== keep){ sel.value = ""; filters.loc = ""; }
+}
+
+/* ---------- assignment mode ---------- */
+function assign(it){
+  var r = counts[it.id] || {blocs:[]};
+  r.rang = ACTIVE.r; r.sect = ACTIVE.s; r.tabl = ACTIVE.t;
+  r.maj = new Date().toISOString();
+  if(!r.par) r.par = who();
+  counts[it.id] = r;
+  saveLocal();
+  push(it.id, r);
+  toast(it.produit + " → " + locLabel(ACTIVE));
+  render();
+}
+function push(id, rec){
+  queue = queue.filter(function(q){ return q.id !== id; });
+  queue.push({id:id, rec:rec, meta:metaOf(id)});
+  saveQueue();
+  flush();
+}
+
+/* ---------- sheet ---------- */
+var sheetLoc = {r:1, s:1, t:"A"};
+function openSheet(it){
+  cur = it;
+  var r = counts[it.id] || {};
+  blocs = (r.blocs || []).map(function(b){ return {c:b.c, u:b.u, r:b.r}; });
+  flagged = !!r.flag;
+  var lastU = blocs.length ? blocs[blocs.length - 1].u : (r.lastU || "");
+  calc = {c:"", u:lastU ? String(lastU) : "", r:""};
+  slot = "c";
+  sheetLoc = hasLoc(r) ? {r:r.rang, s:r.sect, t:r.tabl || ""} : {r:ACTIVE.r, s:ACTIVE.s, t:ACTIVE.t};
+  document.getElementById("sBrand").textContent = it.marque + " · " + it.cat;
+  document.getElementById("sName").textContent = it.produit;
+  document.getElementById("sFlav").textContent = (it.saveur && it.saveur !== "-") ? it.saveur : "";
+  var ref = it.ref === null
+    ? (it.aCompter ? "Jamais compté en septembre" : "Aucune quantité au comptage de septembre")
+    : "Référence septembre : " + fmt(it.ref) + (it.refTxt && /[+*]/.test(it.refTxt) ? "  (" + it.refTxt.replace(/\*/g, " × ") + ")" : "");
+  document.getElementById("sRef").textContent = ref + (it.note ? " · " + it.note : "");
+  document.getElementById("lot").value = r.lot || "";
+  document.getElementById("exp").value = r.exp || "";
+  document.getElementById("note").value = r.note || "";
+  document.getElementById("flag").setAttribute("aria-pressed", flagged ? "true" : "false");
+  document.getElementById("locHint").textContent = hasLoc(r)
+    ? "Emplacement déjà enregistré pour ce produit."
+    : "Pré-rempli avec l'emplacement actif.";
+  if(!locProductCtl){
+    locProductCtl = buildLoc(document.getElementById("locProduct"),
+      function(){ return sheetLoc; },
+      function(v){ sheetLoc = v; },
+      {allowNone:true});
+  } else locProductCtl.refresh();
+  paintSlots(); paintBlocs();
+  var sh = document.getElementById("sheet");
+  sh.hidden = false;
+  requestAnimationFrame(function(){
+    sh.classList.add("open");
+    document.getElementById("scrim").classList.add("open");
+  });
+}
+function closeSheet(){
+  var sh = document.getElementById("sheet");
+  sh.classList.remove("open");
+  document.getElementById("scrim").classList.remove("open");
+  setTimeout(function(){ sh.hidden = true; }, 220);
+  cur = null;
+}
+function paintSlots(){
+  ["c","u","r"].forEach(function(k){
+    var el = document.getElementById("slot" + k.toUpperCase());
+    el.textContent = calc[k] === "" ? "0" : calc[k];
+    el.classList.toggle("ghost", calc[k] === "");
+    el.setAttribute("aria-selected", slot === k ? "true" : "false");
+  });
+  var c = nz(calc.c), u = nz(calc.u), rr = nz(calc.r);
+  document.getElementById("expr").textContent = c + " × " + u + " + " + rr;
+  document.getElementById("res").textContent = fmt(c * u + rr);
+  paintTotal();
+}
+function paintTotal(){
+  var t = blocs.reduce(function(s, b){ return s + blocTotal(b); }, 0);
+  document.getElementById("total").textContent = fmt(t + nz(calc.c) * nz(calc.u) + nz(calc.r));
+}
+function paintBlocs(){
+  var host = document.getElementById("blocs");
+  host.innerHTML = "";
+  blocs.forEach(function(b, i){
+    var el = document.createElement("span");
+    el.className = "bloc";
+    var txt = document.createElement("span");
+    txt.textContent = (nz(b.c) && nz(b.u))
+      ? nz(b.c) + " × " + nz(b.u) + (nz(b.r) ? " + " + nz(b.r) : "") + " = " + fmt(blocTotal(b))
+      : fmt(blocTotal(b));
+    el.appendChild(txt);
+    var x = document.createElement("button");
+    x.type = "button"; x.textContent = "×"; x.setAttribute("aria-label", "Retirer ce bloc");
+    x.addEventListener("click", function(ev){
+      ev.stopPropagation(); blocs.splice(i, 1); paintBlocs(); paintTotal();
+    });
+    el.appendChild(x);
+    host.appendChild(el);
+  });
+  paintTotal();
+}
+
+/* ---------- keypad ---------- */
+(function buildPad(){
+  var pad = document.getElementById("pad");
+  ["7","8","9","4","5","6","1","2","3","C","0","⌫"].forEach(function(k){
+    var b = document.createElement("button");
+    b.type = "button";
+    b.className = "key" + (k === "C" || k === "⌫" ? " util" : "");
+    b.textContent = k;
+    b.addEventListener("click", function(){ press(k); });
+    pad.appendChild(b);
+  });
+})();
+function press(k){
+  if(k === "C") calc[slot] = "";
+  else if(k === "⌫") calc[slot] = calc[slot].slice(0, -1);
+  else if(calc[slot].length < 6) calc[slot] = calc[slot] + k;
+  paintSlots();
+}
+["slotC","slotU","slotR"].forEach(function(id){
+  var el = document.getElementById(id);
+  function pick(){ slot = el.dataset.slot; paintSlots(); }
+  el.addEventListener("click", pick);
+  el.addEventListener("keydown", function(e){
+    if(e.key === "Enter" || e.key === " "){ e.preventDefault(); pick(); }
+  });
+});
+
+document.getElementById("addBloc").addEventListener("click", function(){
+  var t = nz(calc.c) * nz(calc.u) + nz(calc.r);
+  if(!t){ toast("Rien à ajouter"); return; }
+  blocs.push({c:nz(calc.c), u:nz(calc.u), r:nz(calc.r)});
+  var keepU = calc.u;
+  calc = {c:"", u:keepU, r:""}; slot = "c";
+  paintSlots(); paintBlocs();
+});
+document.getElementById("setZero").addEventListener("click", function(){
+  blocs = []; calc = {c:"", u:calc.u, r:"0"}; slot = "r";
+  paintSlots(); paintBlocs();
+  toast("Quantité mise à 0 — enregistrez pour confirmer");
+});
+document.getElementById("flag").addEventListener("click", function(){
+  flagged = !flagged;
+  this.setAttribute("aria-pressed", flagged ? "true" : "false");
+});
+document.getElementById("sClose").addEventListener("click", closeSheet);
+document.getElementById("cancel").addEventListener("click", closeSheet);
+document.getElementById("scrim").addEventListener("click", closeSheet);
+document.addEventListener("keydown", function(e){
+  if(e.key === "Escape" && cur) closeSheet();
+});
+
+document.getElementById("save").addEventListener("click", function(){
+  if(!cur) return;
+  var pend = nz(calc.c) * nz(calc.u) + nz(calc.r);
+  var all = blocs.slice();
+  if(pend || (calc.r === "0" && !blocs.length)) all.push({c:nz(calc.c), u:nz(calc.u), r:nz(calc.r)});
+  var rec = {
+    blocs: all,
+    zero: all.length === 1 && blocTotal(all[0]) === 0,
+    rang: sheetLoc.r || 0,
+    sect: sheetLoc.s || 0,
+    tabl: sheetLoc.t || "",
+    lot: document.getElementById("lot").value.trim(),
+    exp: document.getElementById("exp").value,
+    note: document.getElementById("note").value.trim(),
+    flag: flagged,
+    par: who(),
+    maj: new Date().toISOString(),
+    lastU: nz(calc.u) || (all.length ? all[all.length - 1].u : 0)
+  };
+  if(!all.length && !rec.rang && !rec.lot && !rec.exp && !rec.note && !rec.flag){
+    toast("Aucune quantité saisie"); return;
+  }
+  counts[cur.id] = rec;
+  saveLocal();
+  push(cur.id, rec);
+  var t = recTotal(rec);
+  toast("Enregistré · " + (t === null ? "emplacement seulement" : fmt(t) + " unités"));
+  closeSheet();
+  render();
+});
+
+/* ---------- header controls ---------- */
+locActiveCtl = buildLoc(document.getElementById("locActive"),
+  function(){ return ACTIVE; },
+  function(v){ ACTIVE = v; },
+  {onChange: function(v){
+    saveActive();
+    document.getElementById("assignbar").textContent =
+      "Mode emplacement : touchez un produit pour l'assigner à " + locLabel(v) + ".";
+  }});
+
+document.getElementById("assignMode").addEventListener("click", function(){
+  assignMode = !assignMode;
+  this.setAttribute("aria-pressed", assignMode ? "true" : "false");
+  document.body.classList.toggle("assign", assignMode);
+  document.getElementById("assignbar").textContent =
+    "Mode emplacement : touchez un produit pour l'assigner à " + locLabel(ACTIVE) + ".";
+  render();
+});
+document.getElementById("groupBy").addEventListener("click", function(){
+  groupByLoc = !groupByLoc;
+  this.setAttribute("aria-pressed", groupByLoc ? "true" : "false");
+  this.textContent = groupByLoc ? "Grouper par catégorie" : "Grouper par emplacement";
+  render();
+});
+Array.prototype.forEach.call(document.querySelectorAll(".pill[data-brand]"), function(b){
+  b.addEventListener("click", function(){
+    var k = b.dataset.brand;
+    filters.brands[k] = !filters.brands[k];
+    b.setAttribute("aria-pressed", filters.brands[k] ? "true" : "false");
+    render();
+  });
+});
+document.getElementById("fReste").addEventListener("click", function(){
+  filters.reste = !filters.reste;
+  this.setAttribute("aria-pressed", filters.reste ? "true" : "false");
+  render();
+});
+document.getElementById("q").addEventListener("input", function(){ filters.q = this.value; render(); });
+document.getElementById("fLoc").addEventListener("change", function(){ filters.loc = this.value; render(); });
+document.getElementById("who").addEventListener("change", function(){
+  try{ localStorage.setItem(LS + "-who", this.value); }catch(e){}
+});
+
+/* ---------- export ---------- */
+function csv(){
+  var head = ["Marque","Rangee","Section","Tablette","Emplacement","Nom du produit","Saveur",
+              "Quantite comptee","Detail du comptage","Numero de lot","Date d'expiration","Statut","Compte par",
+              "Date","Reference sept.","Ecart","Note"];
+  var lines = [head.join(";")];
+  var rows = ITEMS.slice().sort(function(a, b){
+    var ra = counts[a.id], rb = counts[b.id];
+    var ka = hasLoc(ra) ? pad(ra.rang) + pad(ra.sect) + (ra.tabl || "Z") : "zzzz";
+    var kb = hasLoc(rb) ? pad(rb.rang) + pad(rb.sect) + (rb.tabl || "Z") : "zzzz";
+    if(ka !== kb) return ka < kb ? -1 : 1;
+    return a.produit < b.produit ? -1 : a.produit > b.produit ? 1 : 0;
+  });
+  rows.forEach(function(it){
+    var r = counts[it.id], tot = recTotal(r);
+    var detail = ((r && r.blocs) || []).map(function(b){
+      return (nz(b.c) && nz(b.u)) ? nz(b.c) + "x" + nz(b.u) + (nz(b.r) ? "+" + nz(b.r) : "") : String(blocTotal(b));
+    }).join(" + ");
+    var statut = !isCounted(r) ? "Non compte" : (r.flag ? "A verifier" : "Compte");
+    var ecart = (tot !== null && it.ref !== null) ? (tot - it.ref) : "";
+    var l = locOf(r);
+    lines.push([
+      it.marque, l ? l.r : "", l ? l.s : "", l ? l.t : "", l ? locLabel(l) : "",
+      it.produit, it.saveur === "-" ? "" : it.saveur,
+      tot === null ? "" : tot, detail, (r && r.lot) || "", (r && r.exp) || "", statut, (r && r.par) || "",
+      r && r.maj ? r.maj.slice(0, 10) : "", it.ref === null ? "" : it.ref, ecart,
+      ((r && r.note) || it.note || "")
+    ].map(function(v){
+      v = String(v == null ? "" : v);
+      return /[;"\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v;
+    }).join(";"));
+  });
+  return "﻿" + lines.join("\r\n");
+}
+document.getElementById("export").addEventListener("click", function(){
+  var name = "comptage-inventaire-" + new Date().toISOString().slice(0, 10) + ".csv";
+  try{
+    var blob = new Blob([csv()], {type:"text/csv;charset=utf-8"});
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.href = url; a.download = name; a.style.display = "none";
+    document.body.appendChild(a); a.click();
+    setTimeout(function(){ URL.revokeObjectURL(url); a.remove(); }, 2000);
+    toast("Fichier CSV téléchargé");
+  }catch(e){ toast("Export impossible sur cet appareil"); }
+});
+
+/* ---------- synchro Google Sheet ---------- */
+var META = Object.create(null);
+ITEMS.forEach(function(it){
+  META[it.id] = {marque:it.marque, cat:it.cat, produit:it.produit,
+                 saveur:(it.saveur === "-" || it.saveur === "Default") ? "" : it.saveur,
+                 ref:it.ref};
+});
+function metaOf(id){ return META[id] || {}; }
+
+function api(){
+  if(ENDPOINT && ENDPOINT.indexOf("http") === 0) return ENDPOINT;
+  try{ return localStorage.getItem(LS + "-api") || ""; }catch(e){ return ""; }
+}
+function saveQueue(){
+  try{ localStorage.setItem(QKEY, JSON.stringify(queue)); }catch(e){}
+}
+function loadQueue(){
+  try{ queue = JSON.parse(localStorage.getItem(QKEY) || "[]") || []; }catch(e){ queue = []; }
+}
+function syncState(){
+  if(!api()){ setSync("local", "Cette tablette"); return; }
+  if(queue.length){ setSync("local", "En attente (" + queue.length + ")"); return; }
+  setSync("live", "Synchronisé");
+}
+function flush(){
+  var url = api();
+  if(!url){ syncState(); return Promise.resolve(); }
+  if(flushing || !queue.length){ syncState(); return Promise.resolve(); }
+  flushing = true;
+  var batch = queue.slice(0, 60);
+  /* text/plain evite le pre-vol CORS, qu'Apps Script ne gere pas */
+  return fetch(url, {
+    method:"POST", mode:"cors", redirect:"follow",
+    headers:{"Content-Type":"text/plain;charset=utf-8"},
+    body: JSON.stringify({action:"save", rows:batch})
+  }).then(function(r){ return r.json(); }).then(function(res){
+    if(!res || !res.ok) throw new Error("refus");
+    var done = Object.create(null);
+    batch.forEach(function(b){ done[b.id] = b.rec.maj || 1; });
+    queue = queue.filter(function(q){
+      return !(q.id in done) || (q.rec.maj || 1) !== done[q.id];
+    });
+    saveQueue();
+    flushing = false;
+    syncState();
+    if(queue.length) flush();
+  }).catch(function(){
+    flushing = false;
+    setSync("local", "Hors ligne (" + queue.length + " en attente)");
+  });
+}
+function pull(){
+  var url = api();
+  if(!url || pulling) return Promise.resolve();
+  pulling = true;
+  return fetch(url + (url.indexOf("?") < 0 ? "?" : "&") + "action=all&t=" + Date.now(),
+               {method:"GET", mode:"cors", redirect:"follow"})
+    .then(function(r){ return r.json(); })
+    .then(function(res){
+      pulling = false;
+      if(!res || !res.ok || !res.rows) return;
+      var changed = false;
+      Object.keys(res.rows).forEach(function(id){
+        var remote = res.rows[id], local = counts[id];
+        if(!remote) return;
+        var pend = queue.some(function(q){ return q.id === id; });
+        if(pend) return;                       /* nos propres modifs pas encore envoyees */
+        var lt = (local && local.maj) || "", rt = remote.maj || "";
+        if(!local || rt > lt){ counts[id] = remote; changed = true; }
+      });
+      if(changed){
+        saveLocal();
+        if(!cur) render(); else progress();
+      }
+      lastPull = Date.now();
+      syncState();
+    }).catch(function(){ pulling = false; });
+}
+document.getElementById("sync").addEventListener("click", function(){
+  var curUrl = api();
+  var v = window.prompt("Adresse de synchronisation (application web Apps Script) :", curUrl || "");
+  if(v === null) return;
+  v = v.trim();
+  try{
+    if(v) localStorage.setItem(LS + "-api", v);
+    else localStorage.removeItem(LS + "-api");
+  }catch(e){}
+  if(v){ flush().then(pull); } else syncState();
+});
+
+/* ---------- boot ---------- */
+function setSync(cls, txt){
+  document.getElementById("sync").className = "sync " + cls;
+  document.getElementById("synctxt").textContent = txt;
+}
+(function boot(){
+  document.getElementById("today").textContent =
+    new Date().toLocaleDateString("fr-CA", {day:"numeric", month:"long", year:"numeric"});
+  try{ document.getElementById("who").value = localStorage.getItem(LS + "-who") || ""; }catch(e){}
+  loadLocal();
+  locActiveCtl.refresh();
+  render();
+  loadQueue();
+  syncState();
+  if(api()){
+    /* premier envoi des comptages deja faits hors ligne */
+    if(!queue.length){
+      Object.keys(counts).forEach(function(id){
+        queue.push({id:id, rec:counts[id], meta:metaOf(id)});
+      });
+      saveQueue();
+    }
+    flush().then(pull);
+    setInterval(function(){ flush().then(pull); }, 15000);
+    document.addEventListener("visibilitychange", function(){
+      if(!document.hidden && Date.now() - lastPull > 5000) flush().then(pull);
+    });
+    window.addEventListener("online", function(){ flush().then(pull); });
+  }
+})();
+})();
+</script>
+
+</body></html>
